@@ -132,6 +132,7 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
             }
             AddEmployee employee = new AddEmployee(data);
             employee.setVisible(true);
+            this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
         }

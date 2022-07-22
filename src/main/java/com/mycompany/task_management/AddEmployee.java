@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class AddEmployee extends javax.swing.JFrame {
 
-    String ch= new String();
+    String ch = new String();
     boolean isUpdate = false;
     EmployeeClass employeeData = new EmployeeClass();
     ConnectionClass con = ConnectionClass.getInstance();
@@ -350,6 +350,9 @@ public class AddEmployee extends javax.swing.JFrame {
             if (preparedStatement2.executeUpdate() > 0) {
                 System.out.println("deleted successfully");
                 JOptionPane.showMessageDialog(null, "deleted sucessfully");
+                EmployeeTable employee = new EmployeeTable();
+                employee.setVisible(true);
+                this.dispose();
 //                    this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, " sorry not able to delete");
@@ -361,9 +364,7 @@ public class AddEmployee extends javax.swing.JFrame {
             System.out.println("exception in addEmployeer delete action " + ex);
             Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
         }
-        EmployeeTable employee = new EmployeeTable();
-        employee.setVisible(true);
-        this.dispose();
+
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -382,14 +383,14 @@ public class AddEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter age ");
         } else if (adharNumber.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter Adhar Number ");
-        } 
-        else if ( !isValidEmailID(ch) ) {
-                        JOptionPane.showMessageDialog(this, "Please enter valid email");
-
-          email1.setVisible(true);
-          email1.setText("please enter a valid email");
         } else {
             if (!isUpdate) {
+                if (!isValidEmailID(ch)) {
+                    JOptionPane.showMessageDialog(this, "Please enter valid email");
+
+                    email1.setVisible(true);
+                    email1.setText("please enter a valid email");
+                }
                 String sql = "INSERT INTO addemployee (name, joiningDate, age, address, email, password, contactNumber,"
                         + "adharNumber) VALUES(?,?,?,?,?,?,?,?)";
                 try {
@@ -405,6 +406,9 @@ public class AddEmployee extends javax.swing.JFrame {
                     ps.execute();
                     System.out.println("Added employee sucessfully");
                     JOptionPane.showMessageDialog(null, "added sucessfully");
+                    EmployeeTable employee = new EmployeeTable();
+                    employee.setVisible(true);
+                    this.dispose();
 
                 } catch (SQLException ex) {
                     Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
@@ -426,14 +430,15 @@ public class AddEmployee extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "updated sucessfully");
 
                     System.out.println("Updated sucessfully");
+                    EmployeeTable employee = new EmployeeTable();
+                    employee.setVisible(true);
+                    this.dispose();
 
                 } catch (SQLException ex) {
                     Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            EmployeeTable employee = new EmployeeTable();
-            employee.setVisible(true);
-            this.dispose();
+
         }
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -458,7 +463,7 @@ public class AddEmployee extends javax.swing.JFrame {
 
     private void emailIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailIdKeyTyped
         char c = evt.getKeyChar();
-ch = ch+c;
+        ch = ch + c;
 
         // TODO add your handling code here:
     }//GEN-LAST:event_emailIdKeyTyped
@@ -523,17 +528,16 @@ ch = ch+c;
         int length = password.getText().length();
 
         if (length > 0 && length < 5) {
-                password1.setVisible(true);
-                password1.setText("weak password");
-        }else if(length >= 5 && length <= 8){
-                    password1.setVisible(true);
-                                   password1.setText("average password");
+            password1.setVisible(true);
+            password1.setText("weak password");
+        } else if (length >= 5 && length <= 8) {
+            password1.setVisible(true);
+            password1.setText("average password");
 
-        }else if( length > 8){
-                    
-            
-                password1.setVisible(true);
-                password1.setText("strong password");
+        } else if (length > 8) {
+
+            password1.setVisible(true);
+            password1.setText("strong password");
 
         }
         // TODO add your handling code here:
@@ -601,9 +605,9 @@ ch = ch+c;
     private javax.swing.JPasswordField password;
     private javax.swing.JLabel password1;
     // End of variables declaration//GEN-END:variables
- public boolean isValidEmailID( String email) {
-     
-     System.out.println(email);
+ public boolean isValidEmailID(String email) {
+
+        System.out.println(email);
         String regex = "^(.+)@(gmail.com)$";
         Pattern ptrn = Pattern.compile(regex);
         Matcher matcher = ptrn.matcher(email);
