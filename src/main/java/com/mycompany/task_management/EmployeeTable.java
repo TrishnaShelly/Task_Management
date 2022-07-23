@@ -17,14 +17,29 @@ import javax.swing.table.DefaultTableModel;
  * @author login
  */
 public class EmployeeTable extends javax.swing.JFrame {
-ConnectionClass connectionClass = ConnectionClass.getInstance();
+    int role=0;
+    ConnectionClass connectionClass = ConnectionClass.getInstance();
     ArrayList<EmployeeClass> employeeData = new ArrayList<>();
     int selectedRow;
+
     /**
      * Creates new form EmployeeTable
      */
     public EmployeeTable() {
         initComponents();
+        createTable();
+    }
+    
+    public EmployeeTable(int role) {
+        initComponents();
+        System.out.println("inside role constructor " + role);
+        this.role=role;
+        if(role==2){
+            add.setText("Add Manager ");
+        }
+         if(role==3){
+            add.setText("Add Employee ");
+        }
         createTable();
     }
 
@@ -39,7 +54,7 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
 
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        add = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,10 +77,10 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
         });
         jScrollPane1.setViewportView(table);
 
-        jButton1.setText("Add Employee");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        add.setText("Add Employee");
+        add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addActionPerformed(evt);
             }
         });
 
@@ -83,7 +98,7 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jButton1)
+                .addComponent(add)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(72, 72, 72))
@@ -94,7 +109,7 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(add)
                     .addComponent(jButton2))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
@@ -110,7 +125,7 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
             DefaultTableModel dtm = (DefaultTableModel) table.getModel();
             selectedRow = table.getSelectedRow();
             String i = dtm.getValueAt(selectedRow, 0).toString();
-            System.out.println("ID is " + i);
+//            System.out.println("ID is " + i);
 
             EmployeeClass data = new EmployeeClass();
             data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
@@ -119,16 +134,17 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
             data.setAge(Integer.parseInt(dtm.getValueAt(selectedRow, 3).toString()));
             data.setJoiningDate(dtm.getValueAt(selectedRow, 4).toString());
 
-            String sql = "SELECT * FROM addemployee WHERE ID  =?";
+            String sql = "SELECT * FROM users WHERE ID=?";
             PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
             ps.setInt(1, data.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                data.setRole(rs.getInt("role"));
                 data.setAddress(rs.getString("Address"));
                 data.setPassword(rs.getString("password"));
                 data.setContactNumber(rs.getString("contactNumber"));
-                data.setAdharNumber(rs.getString("adharNumber"));
-                
+//                data.setAdharNumber(rs.getString("adharNumber"));
+
             }
             AddEmployee employee = new AddEmployee(data);
             employee.setVisible(true);
@@ -137,15 +153,15 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
             Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+
     }//GEN-LAST:event_tableMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
-        AddEmployee add = new AddEmployee();
+        AddEmployee add = new AddEmployee(role);
         add.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -190,22 +206,22 @@ ConnectionClass connectionClass = ConnectionClass.getInstance();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton add;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 public void createTable() {
-        String statement = "SELECT * FROM addemployee";
-    try {
-        PreparedStatement ps = connectionClass.connection.prepareStatement(statement);
-         System.out.println("Sucess");
-//                                ps.setInt(1, 1);
+        String statement = "SELECT * FROM users WHERE  role=?";
+        try {
+            PreparedStatement ps = connectionClass.connection.prepareStatement(statement);
+//         System.out.println("Sucess");
+                                ps.setInt(1,role);
 
             ResultSet resultSet = ps.executeQuery();
-            System.out.println("Sucessfullt executed");
+//            System.out.println("Sucessfullt executed");
 
-            String[] headerName = {"ID", "Name", "emailId", "Age","Joining Date"};
+            String[] headerName = {"ID", "Name", "emailId", "Age", "Joining Date"};
             DefaultTableModel model = new DefaultTableModel(null, headerName);
             table.setModel(model);
             while (resultSet.next()) {
@@ -233,10 +249,10 @@ public void createTable() {
 
             }
 
-    } catch (SQLException ex) {
-        Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-}
+    }
 
 }

@@ -10,6 +10,15 @@ package com.mycompany.task_management;
  */
 public class EmployeeClass {
     int id;
+    int role;
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
     String name;
     String joiningDate;
     int age;

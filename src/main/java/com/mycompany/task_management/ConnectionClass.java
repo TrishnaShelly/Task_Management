@@ -26,9 +26,9 @@ public class ConnectionClass {
                 System.out.println("connected");
                
                 
-                String sql = "CREATE TABLE IF NOT EXISTS addEmployee ( ID INT NOT NULL AUTO_INCREMENT ,name VARCHAR(255) NOT NULL"
-                        + ",joiningDate VARCHAR(255) NOT NULL , age INT NOT NULL , address VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL ,"
-                        + "password VARCHAR(255) NOT NULL, contactNumber VARCHAR(255) NOT NULL , adharNumber VARCHAR(255) NOT NULL,"
+                String sql = "CREATE TABLE IF NOT EXISTS users ( ID INT NOT NULL AUTO_INCREMENT ,name VARCHAR(255) NOT NULL"
+                        + ",joiningDate VARCHAR(255)  ,role INT NOT NULL,  age INT  , address VARCHAR(255) , email VARCHAR(255) NOT NULL ,"
+                        + "password VARCHAR(255) NOT NULL, contactNumber VARCHAR(255), "
                         + "PRIMARY KEY(ID) )";
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.execute();

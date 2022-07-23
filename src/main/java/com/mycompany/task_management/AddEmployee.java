@@ -28,6 +28,7 @@ public class AddEmployee extends javax.swing.JFrame {
     EmployeeClass employeeData = new EmployeeClass();
     ConnectionClass con = ConnectionClass.getInstance();
     String simpleDate;
+    int role;
 
     /**
      * Creates new form AddEmployee
@@ -42,7 +43,35 @@ public class AddEmployee extends javax.swing.JFrame {
         name1.setVisible(false);
         email1.setVisible(false);
 //        address1.setVisible(false);
-        adhar1.setVisible(false);
+//        adhar1.setVisible(false);
+        contact1.setVisible(false);
+        password1.setVisible(false);
+        age1.setVisible(false);
+    }
+
+    public AddEmployee(int role) {
+        initComponents();
+        this.role = role;
+        btnDelete.setVisible(false);
+        Date d = new Date();
+        SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MM/yyyy");
+        simpleDate = frrmatter.format(d);
+        if (role == 2) {
+            btnAdd.setText("Add Manager ");
+            heading.setText("Add Manager");
+                        btnDelete.setText("Delete Manager");
+
+        }
+        if (role == 3) {
+            btnAdd.setText("Add Employee ");
+            heading.setText("Add Employee");
+            btnDelete.setText("Delete Employee");
+
+        }
+        name1.setVisible(false);
+        email1.setVisible(false);
+//        address1.setVisible(false);
+//        adhar1.setVisible(false);
         contact1.setVisible(false);
         password1.setVisible(false);
         age1.setVisible(false);
@@ -51,8 +80,19 @@ public class AddEmployee extends javax.swing.JFrame {
     public AddEmployee(EmployeeClass employeeData) {
         initComponents();
         btnDelete.setVisible(true);
+        if (employeeData.getRole() == 2) {
+            btnAdd.setText("Update Manager ");
+            heading.setText("Add Manager");
+            btnDelete.setText("Delete Manager");
+        }
+        if (employeeData.getRole() == 3) {
+            btnAdd.setText("update Employee ");
+            heading.setText("Add Employee");
+            btnDelete.setText("Delete Employee");
+
+        }
         isUpdate = true;
-        btn1.setText("Update Employee");
+
         this.employeeData = employeeData;
         name.setText(employeeData.getName());
         address.setText(employeeData.getAddress());
@@ -60,12 +100,12 @@ public class AddEmployee extends javax.swing.JFrame {
         emailId.setText(employeeData.getEmail());
         age.setText(String.valueOf(employeeData.getAge()));
         password.setText(employeeData.getPassword());
-        adharNumber.setText(employeeData.getAdharNumber());
+//        adharNumber.setText(employeeData.getAdharNumber());
 
         name1.setVisible(false);
         email1.setVisible(false);
 //        address1.setVisible(false);
-        adhar1.setVisible(false);
+//        adhar1.setVisible(false);
         contact1.setVisible(false);
         password1.setVisible(false);
         age1.setVisible(false);
@@ -82,9 +122,8 @@ public class AddEmployee extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        heading = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -93,18 +132,17 @@ public class AddEmployee extends javax.swing.JFrame {
         emailId = new javax.swing.JTextField();
         contactNumber = new javax.swing.JTextField();
         age = new javax.swing.JTextField();
-        adharNumber = new javax.swing.JTextField();
         name = new javax.swing.JTextField();
         address = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
-        btn1 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         name1 = new javax.swing.JLabel();
         contact1 = new javax.swing.JLabel();
         email1 = new javax.swing.JLabel();
         age1 = new javax.swing.JLabel();
-        adhar1 = new javax.swing.JLabel();
         password1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,24 +150,22 @@ public class AddEmployee extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Add Employee");
+        heading.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        heading.setText("Add Employee");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
         );
 
         jLabel2.setText("Name :");
-
-        jLabel3.setText("Adhar Number:");
 
         jLabel4.setText("Address:");
 
@@ -164,17 +200,6 @@ public class AddEmployee extends javax.swing.JFrame {
             }
         });
 
-        adharNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adharNumberActionPerformed(evt);
-            }
-        });
-        adharNumber.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                adharNumberKeyTyped(evt);
-            }
-        });
-
         name.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nameKeyTyped(evt);
@@ -194,10 +219,10 @@ public class AddEmployee extends javax.swing.JFrame {
             }
         });
 
-        btn1.setText("Add Employee");
-        btn1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add Employee");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -214,9 +239,14 @@ public class AddEmployee extends javax.swing.JFrame {
 
         age1.setText("jLabel14");
 
-        adhar1.setText("jLabel15");
-
         password1.setText("jLabel9");
+
+        jButton1.setText("Return to Home ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -226,6 +256,13 @@ public class AddEmployee extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(165, 165, 165)
+                        .addComponent(btnDelete)
+                        .addGap(124, 124, 124)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(name1)
@@ -252,32 +289,20 @@ public class AddEmployee extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(100, 100, 100)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(email1)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(password1)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(adharNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(age1)
-                                    .addComponent(adhar1))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(password1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(348, 348, 348)
-                .addComponent(btnDelete)
-                .addGap(124, 124, 124)
-                .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 142, Short.MAX_VALUE))
+                                            .addComponent(email1)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(age1))))))
+                        .addContainerGap(154, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,23 +330,18 @@ public class AddEmployee extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adharNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contact1)
-                    .addComponent(adhar1))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password1)
-                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contact1)
+                    .addComponent(password1))
+                .addGap(108, 108, 108)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -343,32 +363,32 @@ public class AddEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            String sql = "DELETE FROM addemployee WHERE id=?";
+            String sql = "DELETE FROM users WHERE id=?";
             PreparedStatement preparedStatement2 = con.connection.prepareStatement(sql);
             preparedStatement2.setInt(1, employeeData.getId());
 //            preparedStatement2.execute/();
             if (preparedStatement2.executeUpdate() > 0) {
-                System.out.println("deleted successfully");
+//                System.out.println("deleted successfully");
                 JOptionPane.showMessageDialog(null, "deleted sucessfully");
-                EmployeeTable employee = new EmployeeTable();
-                employee.setVisible(true);
-                this.dispose();
+                 EmployeeTable employee = new EmployeeTable(employeeData.getRole());
+                    employee.setVisible(true);
+                    this.dispose();
 //                    this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, " sorry not able to delete");
 
-                System.out.println("Sorry don't  deleted");
+//                System.out.println("Sorry don't  deleted");
             }
 
         } catch (SQLException ex) {
-            System.out.println("exception in addEmployeer delete action " + ex);
+//            System.out.println("exception in addEmployeer delete action " + ex);
             Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (name.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter name ");
         } else if (address.getText().equals("")) {
@@ -379,10 +399,6 @@ public class AddEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter password ");
         } else if (contactNumber.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter contact number ");
-        } else if (age.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please enter age ");
-        } else if (adharNumber.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please enter Adhar Number ");
         } else {
             if (!isUpdate) {
                 if (!isValidEmailID(ch)) {
@@ -391,8 +407,8 @@ public class AddEmployee extends javax.swing.JFrame {
                     email1.setVisible(true);
                     email1.setText("please enter a valid email");
                 }
-                String sql = "INSERT INTO addemployee (name, joiningDate, age, address, email, password, contactNumber,"
-                        + "adharNumber) VALUES(?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO users (name, joiningDate, age, address, email, password, contactNumber,"
+                        + "role) VALUES(?,?,?,?,?,?,?,?)";
                 try {
                     PreparedStatement ps = con.connection.prepareStatement(sql);
                     ps.setString(1, name.getText().trim());
@@ -402,11 +418,11 @@ public class AddEmployee extends javax.swing.JFrame {
                     ps.setString(5, emailId.getText().trim());
                     ps.setString(6, password.getText().trim());
                     ps.setString(7, contactNumber.getText().trim());
-                    ps.setString(8, adharNumber.getText().trim());
+                    ps.setInt(8, role);
                     ps.execute();
-                    System.out.println("Added employee sucessfully");
+//                    System.out.println("Added employee sucessfully");
                     JOptionPane.showMessageDialog(null, "added sucessfully");
-                    EmployeeTable employee = new EmployeeTable();
+                    EmployeeTable employee = new EmployeeTable(role);
                     employee.setVisible(true);
                     this.dispose();
 
@@ -414,7 +430,7 @@ public class AddEmployee extends javax.swing.JFrame {
                     Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                String str = "UPDATE addemployee SET name=?,age=?,address=?,email=?,password=?,contactNumber=?,adharnumber=? WHERE ID=?";
+                String str = "UPDATE users SET name=?,age=?,address=?,email=?,password=?,contactNumber=? WHERE ID=?";
                 try {
                     PreparedStatement ps = con.connection.prepareStatement(str);
                     ps.setString(1, name.getText().trim());
@@ -424,13 +440,13 @@ public class AddEmployee extends javax.swing.JFrame {
                     ps.setString(4, emailId.getText().trim());
                     ps.setString(5, password.getText().trim());
                     ps.setString(6, contactNumber.getText().trim());
-                    ps.setString(7, adharNumber.getText().trim());
-                    ps.setInt(8, employeeData.getId());
+//                    ps.setString(7, a.dharNumber.getText().trim());
+                    ps.setInt(7, employeeData.getId());
                     ps.execute();
                     JOptionPane.showMessageDialog(null, "updated sucessfully");
 
-                    System.out.println("Updated sucessfully");
-                    EmployeeTable employee = new EmployeeTable();
+//                    System.out.println("Updated sucessfully");
+                    EmployeeTable employee = new EmployeeTable(employeeData.getRole());
                     employee.setVisible(true);
                     this.dispose();
 
@@ -440,15 +456,11 @@ public class AddEmployee extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_btn1ActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void emailIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailIdActionPerformed
-
-    private void adharNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adharNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adharNumberActionPerformed
 
     private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
         name1.setVisible(false);
@@ -496,32 +508,6 @@ public class AddEmployee extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_contactNumberKeyTyped
 
-    private void adharNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adharNumberKeyTyped
-        adhar1.setVisible(false);
-        char ch = evt.getKeyChar();
-        int length = adharNumber.getText().length();
-
-        if (Character.isDigit(ch) || ch == KeyEvent.VK_BACK_SPACE) {
-            adhar1.setVisible(false);
-        } else {
-            adhar1.setVisible(true);
-            adhar1.setText("Invalid Character " + ch);
-            evt.consume();
-        }
-        if (length == 11) {
-            System.out.println("Adhar Number valid ");
-            adhar1.setForeground(new Color(0, 204, 51));
-            adhar1.setText("Valid Adhar Number");
-            adhar1.setVisible(true);
-        } else {
-            adhar1.setForeground(new Color(255, 0, 0));
-            adhar1.setText("Invalid Adahr Number");
-            adhar1.setVisible(true);
-        }
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_adharNumberKeyTyped
-
     private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
         password1.setVisible(false);
         char ch = evt.getKeyChar();
@@ -542,6 +528,13 @@ public class AddEmployee extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AdminPanel admin = new AdminPanel();
+        admin.setVisible(true);
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -580,19 +573,17 @@ public class AddEmployee extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address;
-    private javax.swing.JLabel adhar1;
-    private javax.swing.JTextField adharNumber;
     private javax.swing.JTextField age;
     private javax.swing.JLabel age1;
-    private javax.swing.JButton btn1;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JLabel contact1;
     private javax.swing.JTextField contactNumber;
     private javax.swing.JLabel email1;
     private javax.swing.JTextField emailId;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel heading;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -607,7 +598,7 @@ public class AddEmployee extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
  public boolean isValidEmailID(String email) {
 
-        System.out.println(email);
+//        System.out.println(email);
         String regex = "^(.+)@(gmail.com)$";
         Pattern ptrn = Pattern.compile(regex);
         Matcher matcher = ptrn.matcher(email);
