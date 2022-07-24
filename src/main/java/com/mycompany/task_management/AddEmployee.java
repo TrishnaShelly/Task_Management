@@ -24,49 +24,50 @@ import javax.swing.JOptionPane;
 public class AddEmployee extends javax.swing.JFrame {
 
     String ch = new String();
+    boolean table = true;
     boolean isUpdate = false;
     EmployeeClass employeeData = new EmployeeClass();
+    EmployeeClass managerData = new EmployeeClass();
+
     ConnectionClass con = ConnectionClass.getInstance();
     String simpleDate;
     int role;
+    int desti = 1;
 
     /**
      * Creates new form AddEmployee
      */
     public AddEmployee() {
         initComponents();
-        btnDelete.setVisible(false);
-        Date d = new Date();
-        SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MM/yyyy");
-        simpleDate = frrmatter.format(d);
 
-        name1.setVisible(false);
-        email1.setVisible(false);
-//        address1.setVisible(false);
-//        adhar1.setVisible(false);
-        contact1.setVisible(false);
-        password1.setVisible(false);
-        age1.setVisible(false);
     }
 
-    public AddEmployee(int role) {
+    public AddEmployee(int role, int desti) {
         initComponents();
+        this.desti = desti;
         this.role = role;
         btnDelete.setVisible(false);
         Date d = new Date();
         SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MM/yyyy");
         simpleDate = frrmatter.format(d);
-        if (role == 2) {
-            btnAdd.setText("Add Manager ");
-            heading.setText("Add Manager");
-                        btnDelete.setText("Delete Manager");
-
-        }
-        if (role == 3) {
-            btnAdd.setText("Add Employee ");
-            heading.setText("Add Employee");
-            btnDelete.setText("Delete Employee");
-
+        switch (role) {
+            case 2:
+                btnAdd.setText("Add Manager ");
+                heading.setText("Add Manager");
+//                btnDelete.setText("Delete Manager");
+                break;
+            case 3:
+                btnAdd.setText("Add Employee ");
+                heading.setText("Add Employee");
+//                btnDelete.setText("Delete Employee");
+                break;
+            case 1:
+                btnAdd.setText("Add Admin ");
+                heading.setText("Add Admin");
+                btnDelete.setVisible(false);
+                break;
+            default:
+                break;
         }
         name1.setVisible(false);
         email1.setVisible(false);
@@ -77,35 +78,79 @@ public class AddEmployee extends javax.swing.JFrame {
         age1.setVisible(false);
     }
 
-    public AddEmployee(EmployeeClass employeeData) {
+    public AddEmployee(EmployeeClass managerData, EmployeeClass employeeData, boolean table) {
         initComponents();
-        btnDelete.setVisible(true);
-        if (employeeData.getRole() == 2) {
-            btnAdd.setText("Update Manager ");
-            heading.setText("Add Manager");
-            btnDelete.setText("Delete Manager");
-        }
-        if (employeeData.getRole() == 3) {
-            btnAdd.setText("update Employee ");
-            heading.setText("Add Employee");
-            btnDelete.setText("Delete Employee");
-
-        }
+        this.table = table;
+        this.desti = managerData.getRole();
+        System.out.println("desti inside  add employee" + desti);
         isUpdate = true;
-
+        this.managerData = managerData;
         this.employeeData = employeeData;
+        btnDelete.setVisible(true);
+        switch (employeeData.getRole()) {
+            case 2 -> {
+                btnAdd.setText("Update Manager ");
+                heading.setText("Update Manager");
+                btnDelete.setText("Delete Manager");
+            }
+            case 3 -> {
+                btnAdd.setText("update Employee ");
+                heading.setText("Update Employee");
+                btnDelete.setText("Delete Employee");
+            }
+            case 1 -> {
+                btnAdd.setText("update Admin ");
+                heading.setText("Update Admin");
+                btnDelete.setVisible(false);
+            }
+            default -> {
+            }
+        }
+
         name.setText(employeeData.getName());
         address.setText(employeeData.getAddress());
         contactNumber.setText(employeeData.getContactNumber());
         emailId.setText(employeeData.getEmail());
         age.setText(String.valueOf(employeeData.getAge()));
         password.setText(employeeData.getPassword());
-//        adharNumber.setText(employeeData.getAdharNumber());
-
         name1.setVisible(false);
         email1.setVisible(false);
-//        address1.setVisible(false);
-//        adhar1.setVisible(false);
+        contact1.setVisible(false);
+        password1.setVisible(false);
+        age1.setVisible(false);
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public AddEmployee(int role, EmployeeClass managerData) {
+        initComponents();
+        Date d = new Date();
+        SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MM/yyyy");
+        simpleDate = frrmatter.format(d);
+        desti = managerData.getRole();
+        btnDelete.setVisible(false);
+        this.role = role;
+        switch (role) {
+            case 2:
+                btnAdd.setText("Add Manager ");
+                heading.setText("Add Manager");
+//                btnDelete.setText("Delete Manager");
+                break;
+            case 3:
+                btnAdd.setText("ADD Employee ");
+                heading.setText("Add Employee");
+//                btnDelete.setText("Delete Employee");
+                break;
+//            case 1:
+//                btnAdd.setText("Add Admin ");
+//                heading.setText("Update Admin");
+//                btnDelete.setVisible(false);
+//                break;
+            default:
+                break;
+        }
+        this.managerData = managerData;
+        name1.setVisible(false);
+        email1.setVisible(false);
         contact1.setVisible(false);
         password1.setVisible(false);
         age1.setVisible(false);
@@ -370,10 +415,32 @@ public class AddEmployee extends javax.swing.JFrame {
             if (preparedStatement2.executeUpdate() > 0) {
 //                System.out.println("deleted successfully");
                 JOptionPane.showMessageDialog(null, "deleted sucessfully");
-                 EmployeeTable employee = new EmployeeTable(employeeData.getRole());
-                    employee.setVisible(true);
-                    this.dispose();
+                System.out.println("desti inside add  delete employeetable" + desti);
+
+                if (desti == 2) {
+                    if (table) {
+                        EmployeeTable employee = new EmployeeTable(3, managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+                    } else {
+                        UsersTAble t = new UsersTAble(managerData);
+                        t.setVisible(true);
+                        this.dispose();
+                    }
 //                    this.dispose();
+                } else if (desti == 1) {
+                    if (table) {
+                        EmployeeTable employee = new EmployeeTable(employeeData.getRole(), managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+                    } else {
+                        UsersTAble t = new UsersTAble(managerData);
+                        t.setVisible(true);
+                        this.dispose();
+                    }
+
+//                    this.dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, " sorry not able to delete");
 
@@ -399,14 +466,14 @@ public class AddEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter password ");
         } else if (contactNumber.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter contact number ");
+        } else if (!isValidEmailID(ch) && !isUpdate) {
+            JOptionPane.showMessageDialog(this, "Please enter valid email");
+
+            email1.setVisible(true);
+            email1.setText("please enter a valid email");
         } else {
             if (!isUpdate) {
-                if (!isValidEmailID(ch)) {
-                    JOptionPane.showMessageDialog(this, "Please enter valid email");
 
-                    email1.setVisible(true);
-                    email1.setText("please enter a valid email");
-                }
                 String sql = "INSERT INTO users (name, joiningDate, age, address, email, password, contactNumber,"
                         + "role) VALUES(?,?,?,?,?,?,?,?)";
                 try {
@@ -422,9 +489,23 @@ public class AddEmployee extends javax.swing.JFrame {
                     ps.execute();
 //                    System.out.println("Added employee sucessfully");
                     JOptionPane.showMessageDialog(null, "added sucessfully");
-                    EmployeeTable employee = new EmployeeTable(role);
-                    employee.setVisible(true);
-                    this.dispose();
+//                    if (managerData.getRole() == 2) {
+                    if (table) {
+                        EmployeeTable employee = new EmployeeTable(role, managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+                    } else {
+                        UsersTAble employee = new UsersTAble(managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+                    }
+////                    this.dispose();
+//                    } else if (managerData.getRole() == 1) {,
+//                        EmployeeTable employee = new EmployeeTable(employeeData.getRole(), managerData);
+//                        employee.setVisible(true);
+//                        this.dispose();
+////                    this.dispose();
+//                    }
 
                 } catch (SQLException ex) {
                     Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
@@ -446,9 +527,22 @@ public class AddEmployee extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "updated sucessfully");
 
 //                    System.out.println("Updated sucessfully");
-                    EmployeeTable employee = new EmployeeTable(employeeData.getRole());
-                    employee.setVisible(true);
-                    this.dispose();
+                   if(table){ if (desti == 2) {
+                        EmployeeTable employee = new EmployeeTable(3, managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+//                    this.dispose();
+                    } else if (desti == 1) {
+                        EmployeeTable employee = new EmployeeTable(employeeData.getRole(), managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+//                    this.dispose();
+                    }}
+                 else {
+                        UsersTAble employee = new UsersTAble(managerData);
+                        employee.setVisible(true);
+                        this.dispose();
+                    }
 
                 } catch (SQLException ex) {
                     Logger.getLogger(AddEmployee.class.getName()).log(Level.SEVERE, null, ex);
@@ -530,10 +624,15 @@ public class AddEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        AdminPanel admin = new AdminPanel();
-        admin.setVisible(true);
-        this.dispose();
-        // TODO add your handling code here:
+        if (desti == 2) {
+            ManagerPanel manager = new ManagerPanel(managerData);
+            manager.setVisible(true);
+            this.dispose();
+        } else {
+            AdminPanel admin = new AdminPanel(managerData);
+            admin.setVisible(true);
+            this.dispose();
+        } // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

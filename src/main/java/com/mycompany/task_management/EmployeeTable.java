@@ -17,10 +17,13 @@ import javax.swing.table.DefaultTableModel;
  * @author login
  */
 public class EmployeeTable extends javax.swing.JFrame {
-    int role=0;
+
+    int role = 0;
     ConnectionClass connectionClass = ConnectionClass.getInstance();
     ArrayList<EmployeeClass> employeeData = new ArrayList<>();
     int selectedRow;
+    int desti = 1;
+    EmployeeClass employeedata, managerData;
 
     /**
      * Creates new form EmployeeTable
@@ -29,16 +32,20 @@ public class EmployeeTable extends javax.swing.JFrame {
         initComponents();
         createTable();
     }
-    
-    public EmployeeTable(int role) {
+
+    public EmployeeTable(int role, EmployeeClass managerData) {
         initComponents();
-        System.out.println("inside role constructor " + role);
-        this.role=role;
-        if(role==2){
-            add.setText("Add Manager ");
-        }
-         if(role==3){
-            add.setText("Add Employee ");
+        this.role = role;
+        desti = managerData.getRole();
+        System.out.println("desti inside employeetable" + desti);
+        this.managerData = managerData;
+        switch (role) {
+            case 2 ->
+                add.setText("Add Manager ");
+            case 3 ->
+                add.setText("Add Employee ");
+            default ->
+                add.setVisible(false);
         }
         createTable();
     }
@@ -126,6 +133,7 @@ public class EmployeeTable extends javax.swing.JFrame {
             selectedRow = table.getSelectedRow();
             String i = dtm.getValueAt(selectedRow, 0).toString();
 //            System.out.println("ID is " + i);
+            System.out.println("desti inside  mouse employeetable" + desti);
 
             EmployeeClass data = new EmployeeClass();
             data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
@@ -146,9 +154,12 @@ public class EmployeeTable extends javax.swing.JFrame {
 //                data.setAdharNumber(rs.getString("adharNumber"));
 
             }
-            AddEmployee employee = new AddEmployee(data);
-            employee.setVisible(true);
-            this.dispose();
+         
+                AddEmployee employee = new AddEmployee(managerData, data,true);
+                employee.setVisible(true);
+                this.dispose();
+            
+
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -158,16 +169,24 @@ public class EmployeeTable extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
-        AddEmployee add = new AddEmployee(role);
+
+        AddEmployee add = new AddEmployee(role, managerData);
         add.setVisible(true);
         this.dispose();
+
     }//GEN-LAST:event_addActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        AdminPanel admin = new AdminPanel();
-        admin.setVisible(true);
-        this.dispose();
+        if (desti == 2) {
+            ManagerPanel manager = new ManagerPanel(managerData);
+            manager.setVisible(true);
+            this.dispose();
+        } else if (desti == 1) {
+            AdminPanel admin = new AdminPanel(managerData);
+            admin.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -216,7 +235,7 @@ public void createTable() {
         try {
             PreparedStatement ps = connectionClass.connection.prepareStatement(statement);
 //         System.out.println("Sucess");
-                                ps.setInt(1,role);
+            ps.setInt(1, role);
 
             ResultSet resultSet = ps.executeQuery();
 //            System.out.println("Sucessfullt executed");

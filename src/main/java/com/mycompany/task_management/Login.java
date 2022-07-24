@@ -4,6 +4,11 @@
  */
 package com.mycompany.task_management;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,12 +16,27 @@ import javax.swing.JOptionPane;
  * @author login
  */
 public class Login extends javax.swing.JFrame {
+ConnectionClass conn= ConnectionClass.getInstance();
+    int role;
+    boolean match= false;
 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+    }
+
+    public Login(int role) {
+        initComponents();
+        this.role = role;
+        if (role == 1) {
+            heading.setText("LOGIN AS AN ADMIN");
+        } else if (role == 2) {
+            heading.setText("LOGIN AS A MANAGER");
+        } else if (role == 3) {
+            heading.setText("LOGIN AS A EMPLOYEE");
+        }
     }
 
     /**
@@ -29,7 +49,7 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        heading = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
@@ -40,9 +60,9 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Login Form");
+        heading.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        heading.setText("Login As a Admin");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 51, 51));
@@ -73,29 +93,28 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(170, 170, 170)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(password))))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(password)))
+                .addContainerGap(150, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(256, 256, 256))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -104,9 +123,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                     .addComponent(password))
-                .addGap(61, 61, 61)
+                .addGap(66, 66, 66)
                 .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addGap(0, 73, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -120,7 +139,7 @@ public class Login extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(475, 422));
+        setSize(new java.awt.Dimension(647, 433));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -129,22 +148,70 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
-          if( email.getText().equals("admin@gmail.com") && password.getText().equals("admin")){
-              AdminPanel adminPortal = new AdminPanel ();
-              adminPortal.setVisible(true);
-              this.dispose();
-          }
-          else if (email.getText().isEmpty()){
-              JOptionPane.showMessageDialog(this,"please enter a email");
-          }
-           else if (password.getText().isEmpty()){
-              JOptionPane.showMessageDialog(this,"please enter a password");
-          }else{
-                             JOptionPane.showMessageDialog(this,"please enter a valid email and password ");
-
-           }
-
+         String email1 = email.getText();
+        String password1 = password.getText();
         
+        if (email.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "please enter a email");
+        } else if (password.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "please enter a password");
+        } else {
+            String sql = "SELECT * FROM users where email=? and password=? and role=?";
+                PreparedStatement ps;
+            try {
+                ps = conn.connection.prepareStatement(sql);
+                ps.setString(1, email.getText().trim());
+                ps.setString(2, password.getText().trim());
+                ps.setInt(3,role);
+                ResultSet resultSet = ps.executeQuery();
+//              System.out.println(resultSet);
+                while (resultSet.next()) {
+                    match=true;
+                   EmployeeClass data = new EmployeeClass();
+                    data.setJoiningDate(resultSet.getString("joiningDate"));
+                    data.setPassword(resultSet.getString("password"));
+                    data.setRole(resultSet.getInt("role"));
+                    data.setId(resultSet.getInt("id"));
+                    data.setAge(resultSet.getInt("age"));
+                    data.setAddress(resultSet.getString("address"));
+                   data.setContactNumber(resultSet.getString("contactNumber"));
+                    data.setName(resultSet.getString("name"));
+                    data.setEmail(resultSet.getString("email"));
+                if (data.getEmail().equals(email1) && data.getPassword().equals(password1)) {
+                        System.out.println("fetched");    
+                        switch (data.getRole()) {
+                            case 1 -> {
+                                AdminPanel loginAdmin = new AdminPanel(data);
+                                loginAdmin.setVisible(true);
+                                this.dispose();
+                            }
+                            case 2 -> {
+                                ManagerPanel loginTeacher = new ManagerPanel(data);
+                                loginTeacher.setVisible(true);
+                                this.dispose();
+                            }
+                            case 3 -> {
+                                EmployeePanel loginStudent = new EmployeePanel(data);
+                                loginStudent.setVisible(true);
+                                this.dispose();
+                            }
+                            default -> {
+                            }
+                        }
+                }
+                }
+                if(!match){
+                    JOptionPane.showMessageDialog(this,"please enter a registerd email and password");
+                }
+           
+                        
+            
+            }catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnActionPerformed
@@ -187,7 +254,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn;
     private javax.swing.JTextField email;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel heading;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

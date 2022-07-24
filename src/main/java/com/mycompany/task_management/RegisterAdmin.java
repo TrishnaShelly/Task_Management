@@ -22,6 +22,11 @@ ConnectionClass con = ConnectionClass.getInstance();
     public RegisterAdmin() {
         initComponents();
     }
+//    public RegisterAdmin(int role) {
+//        initComponents();
+//        btn.setVisible(false);
+//        heading.setText("View Profile ");
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,23 +38,23 @@ ConnectionClass con = ConnectionClass.getInstance();
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        heading = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Register admin");
+        heading.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        heading.setForeground(new java.awt.Color(0, 102, 102));
+        heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        heading.setText("Register admin");
 
         jLabel2.setText("Password:");
 
@@ -57,10 +62,10 @@ ConnectionClass con = ConnectionClass.getInstance();
 
         jLabel4.setText("Name:");
 
-        jButton1.setText("Register Admin");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn.setText("Register Admin");
+        btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnActionPerformed(evt);
             }
         });
 
@@ -68,7 +73,7 @@ ConnectionClass con = ConnectionClass.getInstance();
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -85,13 +90,13 @@ ConnectionClass con = ConnectionClass.getInstance();
                             .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addComponent(jButton1)))
+                        .addComponent(btn)))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -105,7 +110,7 @@ ConnectionClass con = ConnectionClass.getInstance();
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btn)
                 .addGap(47, 47, 47))
         );
 
@@ -124,7 +129,7 @@ ConnectionClass con = ConnectionClass.getInstance();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
         if (name.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter name ");
         } else if (email.getText().equals("")) {
@@ -161,7 +166,7 @@ ConnectionClass con = ConnectionClass.getInstance();
 
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,9 +204,9 @@ ConnectionClass con = ConnectionClass.getInstance();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn;
     private javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel heading;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
