@@ -16,9 +16,10 @@ import javax.swing.JOptionPane;
  * @author login
  */
 public class Login extends javax.swing.JFrame {
-ConnectionClass conn= ConnectionClass.getInstance();
+
+    ConnectionClass conn = ConnectionClass.getInstance();
     int role;
-    boolean match= false;
+    boolean match = false;
 
     /**
      * Creates new form Login
@@ -55,6 +56,7 @@ ConnectionClass conn= ConnectionClass.getInstance();
         email = new javax.swing.JTextField();
         btn = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,11 +91,24 @@ ConnectionClass conn= ConnectionClass.getInstance();
 
         password.setText("admin");
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton1.setText("<-");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(heading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(49, 49, 49))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(170, 170, 170)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -114,7 +129,9 @@ ConnectionClass conn= ConnectionClass.getInstance();
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(heading, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,37 +165,37 @@ ConnectionClass conn= ConnectionClass.getInstance();
     }//GEN-LAST:event_emailActionPerformed
 
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
-         String email1 = email.getText();
+        String email1 = email.getText();
         String password1 = password.getText();
-        
+
         if (email.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "please enter a email");
         } else if (password.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "please enter a password");
         } else {
             String sql = "SELECT * FROM users where email=? and password=? and role=?";
-                PreparedStatement ps;
+            PreparedStatement ps;
             try {
                 ps = conn.connection.prepareStatement(sql);
                 ps.setString(1, email.getText().trim());
                 ps.setString(2, password.getText().trim());
-                ps.setInt(3,role);
+                ps.setInt(3, role);
                 ResultSet resultSet = ps.executeQuery();
 //              System.out.println(resultSet);
                 while (resultSet.next()) {
-                    match=true;
-                   EmployeeClass data = new EmployeeClass();
+                    match = true;
+                    EmployeeClass data = new EmployeeClass();
                     data.setJoiningDate(resultSet.getString("joiningDate"));
                     data.setPassword(resultSet.getString("password"));
                     data.setRole(resultSet.getInt("role"));
                     data.setId(resultSet.getInt("id"));
                     data.setAge(resultSet.getInt("age"));
                     data.setAddress(resultSet.getString("address"));
-                   data.setContactNumber(resultSet.getString("contactNumber"));
+                    data.setContactNumber(resultSet.getString("contactNumber"));
                     data.setName(resultSet.getString("name"));
                     data.setEmail(resultSet.getString("email"));
-                if (data.getEmail().equals(email1) && data.getPassword().equals(password1)) {
-                        System.out.println("fetched");    
+                    if (data.getEmail().equals(email1) && data.getPassword().equals(password1)) {
+                        System.out.println("fetched");
                         switch (data.getRole()) {
                             case 1 -> {
                                 AdminPanel loginAdmin = new AdminPanel(data);
@@ -198,23 +215,27 @@ ConnectionClass conn= ConnectionClass.getInstance();
                             default -> {
                             }
                         }
+                    }
                 }
+                if (!match) {
+                    JOptionPane.showMessageDialog(this, "please enter a registerd email and password");
                 }
-                if(!match){
-                    JOptionPane.showMessageDialog(this,"please enter a registerd email and password");
-                }
-           
-                        
-            
-            }catch (SQLException ex) {
+
+            } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-
 
         }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        LoginBefore l = new LoginBefore();
+        l.setVisible(true);
+        this.dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,6 +276,7 @@ ConnectionClass conn= ConnectionClass.getInstance();
     private javax.swing.JButton btn;
     private javax.swing.JTextField email;
     private javax.swing.JLabel heading;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
