@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class TaskTable extends javax.swing.JFrame {
 
     EmployeeClass ManagerData;
-    int role,selectedRow;
+    int role, selectedRow;
     ConnectionClass connectionClass = ConnectionClass.getInstance();
     ArrayList< TaskClass> taskdata = new ArrayList<>();
 
@@ -28,7 +28,7 @@ public class TaskTable extends javax.swing.JFrame {
      */
     public TaskTable() {
         initComponents();
-        
+
     }
 
     public TaskTable(int role, EmployeeClass ManagerData) {
@@ -36,16 +36,16 @@ public class TaskTable extends javax.swing.JFrame {
         this.ManagerData = ManagerData;
         this.role = role;
 //                    you.setVisible(false);
-   if(role==1){
-        createTable();}
-        if( role == 2){
+        if (role == 1) {
             createTable();
+        }
+        if (role == 2) {
+            createTable();
+//            createAssignTable();
+        }
+        if (role == 3) {
             createAssignTable();
         }
-        if(role==3){
-            createAssignTable();
-        }
-  
 
     }
 
@@ -61,6 +61,8 @@ public class TaskTable extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +91,20 @@ public class TaskTable extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("View Completed Tasks ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("View pending tasks ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,6 +113,10 @@ public class TaskTable extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -104,7 +124,10 @@ public class TaskTable extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addGap(18, 18, 18))
         );
 
@@ -119,16 +142,16 @@ public class TaskTable extends javax.swing.JFrame {
                 admin.setVisible(true);
                 this.dispose();
             }
-            case 2 ->                 {
-                    ManagerPanel manager = new ManagerPanel(ManagerData);
-                    manager.setVisible(true);
-                    this.dispose();
-                }
-            default ->                 {
-                        EmployeePanel manager = new EmployeePanel(ManagerData);
-                        manager.setVisible(true);
-                        this.dispose();
-                }
+            case 2 -> {
+                ManagerPanel manager = new ManagerPanel(ManagerData);
+                manager.setVisible(true);
+                this.dispose();
+            }
+            default -> {
+                EmployeePanel manager = new EmployeePanel(ManagerData);
+                manager.setVisible(true);
+                this.dispose();
+            }
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -142,13 +165,19 @@ public class TaskTable extends javax.swing.JFrame {
 //            System.out.println("ID is " + i);
 //            System.out.println("desti inside  mouse employeetable" + desti);
 //
-           TaskClass data = new TaskClass();
+            TaskClass data = new TaskClass();
             data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
             data.setTitle(dtm.getValueAt(selectedRow, 1).toString());
             data.setDescription(dtm.getValueAt(selectedRow, 2).toString());
             data.setStratDate((dtm.getValueAt(selectedRow, 3).toString()));
             data.setDueDate(dtm.getValueAt(selectedRow, 4).toString());
-
+            if (!"Pending".equals(dtm.getValueAt(selectedRow, 5).toString())) {
+                data.setStatus(1);
+            } //            data.setStatus();
+            //            
+            else {
+                data.setStatus(0);
+            }
             String sql = "SELECT * FROM tasks WHERE ID=?";
             PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
             ps.setInt(1, data.getId());
@@ -158,7 +187,7 @@ public class TaskTable extends javax.swing.JFrame {
                 data.setManagerId(rs.getInt("managerID"));
 
             }
- 
+
             AssignTask employee = new AssignTask(data, ManagerData);
             employee.setVisible(true);
             this.dispose();
@@ -169,6 +198,18 @@ public class TaskTable extends javax.swing.JFrame {
 
 // TODO add your handling code here:
     }//GEN-LAST:event_tableMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        StatusTable status = new StatusTable(ManagerData, 1);
+        status.setVisible(true);
+        this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        StatusTable status = new StatusTable(ManagerData, 0);
+        status.setVisible(true);
+        this.dispose(); // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,6 +248,8 @@ public class TaskTable extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
@@ -219,7 +262,7 @@ public class TaskTable extends javax.swing.JFrame {
                 PreparedStatement ps = connectionClass.connection.prepareStatement(statement);
                 ResultSet resultSet = ps.executeQuery();
 
-                String[] headerName = {"ID", "Title", "Description", "Start Date", "Due Date"};
+                String[] headerName = {"ID", "Title", "Description", "Start Date", "Due Date", "Status"};
                 DefaultTableModel model = new DefaultTableModel(null, headerName);
                 table.setModel(model);
 
@@ -228,19 +271,26 @@ public class TaskTable extends javax.swing.JFrame {
                     data.setId(resultSet.getInt("ID"));
                     data.setTitle(resultSet.getString("title"));
                     data.setDescription(resultSet.getString("description"));
-//                    data.setLastName(resultSet.getString("LastName"));
+                    data.setStatus(resultSet.getInt("status"));
                     data.setStratDate(resultSet.getString("startDate"));
                     data.setDueDate(resultSet.getString("dueDate"));
+
                     taskdata.add(data);
                 }
 
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 for (int i = 0; i < taskdata.size(); i++) {
                     row[0] = taskdata.get(i).getId();
                     row[1] = taskdata.get(i).getTitle();
                     row[2] = taskdata.get(i).getDescription();
                     row[3] = taskdata.get(i).getStratDate();
                     row[4] = taskdata.get(i).getDueDate();
+
+                    if (taskdata.get(i).getStatus() == 0) {
+                        row[5] = "Pending";
+                    } else {
+                        row[5] = "Completed";
+                    }
                     model.addRow(row);
                 }
             } catch (SQLException ex) {
@@ -255,7 +305,7 @@ public class TaskTable extends javax.swing.JFrame {
                 ps.setInt(1, ManagerData.getId());
                 ResultSet resultSet = ps.executeQuery();
 
-                String[] headerName = {"ID", "Title", "Description", "Start Date", "Due Date"};
+                String[] headerName = {"ID", "Title", "Description", "Start Date", "Due Date","Status"};
                 DefaultTableModel model = new DefaultTableModel(null, headerName);
                 table.setModel(model);
 
@@ -264,19 +314,25 @@ public class TaskTable extends javax.swing.JFrame {
                     data.setId(resultSet.getInt("ID"));
                     data.setTitle(resultSet.getString("title"));
                     data.setDescription(resultSet.getString("description"));
-//                    data.setLastName(resultSet.getString("LastName"));
+                    data.setStatus(resultSet.getInt("status"));
                     data.setStratDate(resultSet.getString("startDate"));
                     data.setDueDate(resultSet.getString("dueDate"));
                     taskdata.add(data);
                 }
 
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 for (int i = 0; i < taskdata.size(); i++) {
                     row[0] = taskdata.get(i).getId();
                     row[1] = taskdata.get(i).getTitle();
                     row[2] = taskdata.get(i).getDescription();
                     row[3] = taskdata.get(i).getStratDate();
                     row[4] = taskdata.get(i).getDueDate();
+
+                    if (taskdata.get(i).getStatus() == 0) {
+                        row[5] = "Pending";
+                    } else {
+                        row[5] = "Completed";
+                    }
                     model.addRow(row);
                 }
             } catch (SQLException ex) {
@@ -285,43 +341,48 @@ public class TaskTable extends javax.swing.JFrame {
 
         }
     }
-    
-    public void createAssignTable(){
+
+    public void createAssignTable() {
         String statement = "SELECT * FROM tasks WHERE employeeID =?";
 
-            try {
-                PreparedStatement ps = connectionClass.connection.prepareStatement(statement);
-                ps.setInt(1, ManagerData.getId());
-                ResultSet resultSet = ps.executeQuery();
+        try {
+            PreparedStatement ps = connectionClass.connection.prepareStatement(statement);
+            ps.setInt(1, ManagerData.getId());
+            ResultSet resultSet = ps.executeQuery();
 
-                String[] headerName = {"ID", "Title", "Description", "Start Date", "Due Date"};
-                DefaultTableModel model = new DefaultTableModel(null, headerName);
-                table.setModel(model);
+            String[] headerName = {"ID", "Title", "Description", "Start Date", "Due Date","Status"};
+            DefaultTableModel model = new DefaultTableModel(null, headerName);
+            table.setModel(model);
 
-                while (resultSet.next()) {
-                    TaskClass data = new TaskClass();
-                    data.setId(resultSet.getInt("ID"));
-                    data.setTitle(resultSet.getString("title"));
-                    data.setDescription(resultSet.getString("description"));
-//                    data.setLastName(resultSet.getString("LastName"));
-                    data.setStratDate(resultSet.getString("startDate"));
-                    data.setDueDate(resultSet.getString("dueDate"));
-                    taskdata.add(data);
-                }
-
-                Object[] row = new Object[5];
-                for (int i = 0; i < taskdata.size(); i++) {
-                    row[0] = taskdata.get(i).getId();
-                    row[1] = taskdata.get(i).getTitle();
-                    row[2] = taskdata.get(i).getDescription();
-                    row[3] = taskdata.get(i).getStratDate();
-                    row[4] = taskdata.get(i).getDueDate();
-                    model.addRow(row);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(TaskTable.class.getName()).log(Level.SEVERE, null, ex);
+            while (resultSet.next()) {
+                TaskClass data = new TaskClass();
+                data.setId(resultSet.getInt("ID"));
+                data.setTitle(resultSet.getString("title"));
+                data.setDescription(resultSet.getString("description"));
+                data.setStatus(resultSet.getInt("status"));
+                data.setStratDate(resultSet.getString("startDate"));
+                data.setDueDate(resultSet.getString("dueDate"));
+                taskdata.add(data);
             }
 
-        
+            Object[] row = new Object[6];
+            for (int i = 0; i < taskdata.size(); i++) {
+                row[0] = taskdata.get(i).getId();
+                row[1] = taskdata.get(i).getTitle();
+                row[2] = taskdata.get(i).getDescription();
+                row[3] = taskdata.get(i).getStratDate();
+                row[4] = taskdata.get(i).getDueDate();
+
+                if (taskdata.get(i).getStatus() == 0) {
+                    row[5] = "Pending";
+                } else {
+                    row[5] = "Completed";
+                }
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

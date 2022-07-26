@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class AssignTask extends javax.swing.JFrame {
 
-    boolean isUpdate = false;
+    boolean isUpdate = false,status=false;
     String simpleDate;
     int role;
     EmployeeClass ManagerData;
@@ -62,9 +62,7 @@ public class AssignTask extends javax.swing.JFrame {
                     id = rs.getInt("ID");
                     name = rs.getString("name");
                     des = rs.getInt("role");
-                    if (des == 2) {
-                        employeeID.addItem(name + "(Manager)id: " + id);
-                    } else if (des == 3) {
+                    if (des == 3) {
                         employeeID.addItem(name + "(Employee)id: " + id);
                     }
 
@@ -101,8 +99,13 @@ public class AssignTask extends javax.swing.JFrame {
 //          check=true;
             view.setVisible(false);
             btn.setVisible(false);
-            heading.setText("View Task");
-        } else {
+            if(taskdata.getStatus()==0){
+            heading.setText("View Task (  Not Done )");}
+            else{
+                            heading.setText("View Task ( Done )");}
+
+            }
+         else {
             view.setText("Delete task ");
             btn.setText("Update Task");
             heading.setText("Update Task");
@@ -118,9 +121,7 @@ public class AssignTask extends javax.swing.JFrame {
                         id = rs.getInt("ID");
                         name = rs.getString("name");
                         des = rs.getInt("role");
-                        if (des == 2) {
-                            employeeID.addItem(name + "(Manager)id: " + id);
-                        } else if (des == 3) {
+                         if (des == 3) {
                             employeeID.addItem(name + "(Employee)id: " + id);
                         }
 
@@ -151,7 +152,7 @@ public class AssignTask extends javax.swing.JFrame {
                 employeeID.addItem(ManagerData.getName() + "(Employee)id: " + ManagerData.getId());
         }
 
-       dueDate.setMinSelectableDate(d2);
+        dueDate.setMinSelectableDate(d2);
         this.taskdata = taskdata;
         this.ManagerData = ManagerData;
         isUpdate = true;
@@ -170,21 +171,19 @@ public class AssignTask extends javax.swing.JFrame {
 //
 ////        name + "(Employee)id: " + id
         try {
-            String sql2 = "SELECT * FROM users WHERE ID =?";
+            String sql2 = "SELECT name FROM users WHERE ID =?";
             PreparedStatement ps2;
             ps2 = connectionClass.connection.prepareStatement(sql2);
             ps2.setInt(1, taskdata.getEmployeeId());
             ResultSet rs = ps2.executeQuery();
             while (rs.next()) {
                 name = rs.getString("name");
-                role = rs.getInt("role");
-                if (taskdata.getEmployeeId() == 2) {
-                    employeeID.setSelectedItem(name + "(Manager)id: " + taskdata.getEmployeeId());
-                }
-                if (taskdata.getEmployeeId() == 3) {
+//                role = rs.getInt("role");
+               
+//                if (taskdata.getEmployeeId() == 3) {
                     employeeID.setSelectedItem(name + "(Employee)id: " + taskdata.getEmployeeId());
 
-                }
+//                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
@@ -383,7 +382,8 @@ public class AssignTask extends javax.swing.JFrame {
         if (isUpdate) {
 //                String sql = "INSERT INTO tasks (title,description,startDate,dueDate, employeeID ,"
 //                    + "managerID) VALUES(?,?,?,?,?,?)";
-                String sql = "UPDATE tasks SET title=?,description=?,dueDate=?, employeeID=?, managerID=?  WHERE ID=?";
+                String sql = "UPDATE tasks SET title=?,description=?,dueDate=?, employeeID=?, managerID=?, status=?"
+                        + "  WHERE ID=?";
             try {
                 PreparedStatement ps2 = connectionClass.connection.prepareStatement(sql);
                 ps2.setString(1, title.getText());
@@ -395,7 +395,9 @@ public class AssignTask extends javax.swing.JFrame {
                 int a = Integer.parseInt(emp[lenght - 1]);
                 ps2.setInt(4, a);
                 ps2.setInt(5, ManagerData.getId());
-                ps2.setInt(6,taskdata.getId());
+                ps2.setInt(6,0);
+                ps2.setInt(7,taskdata.getId());
+                
                 ps2.execute();
                 JOptionPane.showMessageDialog(this, "updated Task ");
 
@@ -417,8 +419,8 @@ public class AssignTask extends javax.swing.JFrame {
             
             
         } else {
-            String sql = "INSERT INTO tasks (title,description,startDate,dueDate, employeeID ,"
-                    + "managerID) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO tasks (title,description,startDate,dueDate, employeeID ,status ,"
+                    + "managerID) VALUES(?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps2 = connectionClass.connection.prepareStatement(sql);
                 ps2.setString(1, title.getText());
@@ -429,7 +431,8 @@ public class AssignTask extends javax.swing.JFrame {
                 int lenght = emp.length;
                 int a = Integer.parseInt(emp[lenght - 1]);
                 ps2.setInt(5, a);
-                ps2.setInt(6, ManagerData.getId());
+                ps2.setInt(6,0);
+                ps2.setInt(7, ManagerData.getId());
                 ps2.execute();
                 JOptionPane.showMessageDialog(this, "Assigned Task ");
 

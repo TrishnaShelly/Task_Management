@@ -16,6 +16,16 @@ public class TaskClass {
     String stratDate;
     String dueDate;
     int managerId;
+    int status ;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
 
     public int getManagerId() {
         return managerId;

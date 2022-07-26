@@ -36,12 +36,22 @@ public class ConnectionClass {
                   
                 String sql2="CREATE TABLE IF NOT EXISTS tasks (ID INT NOT NULL AUTO_INCREMENT ,title  VARCHAR(255) NOT NULL,"
                         + "description VARCHAR(255) NOT NULL , startDate VARCHAR(255) NOT NULL , dueDate VARCHAR(255) NOT NULL,"
-                        + "employeeID INT NOT NULL,managerID INT NOT NULL,  PRIMARY KEY(ID))";
+                        + "employeeID INT NOT NULL,managerID INT NOT NULL,status INT,"
+                        + "  PRIMARY KEY(ID))";
                 PreparedStatement ps2 = connection.prepareStatement(sql2);
               if(     ps2.executeUpdate()>0) {
                   System.out.println("creater table tasks ");
               } else {
               }
+              
+//              String sql3 = "CREATE TABLE IF NOT EXISTS status ( ID INT NOT NULL AUTO_INCREMENT ,"
+//                      + "taskID INT NOT NULL ,"
+//                      + "complete INT ,"   // 1 for completed 
+//                      + "PRIMARY KEY(ID) )";
+//                PreparedStatement ps3 = connection.prepareStatement(sql3);
+//                ps3.execute();
+//                System.out.println("Created table status "
+//                        + " successfully");
                 
             }
         } catch (SQLException ex) {
