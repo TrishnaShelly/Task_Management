@@ -47,6 +47,7 @@ public class UsersTAble extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -54,7 +55,7 @@ public class UsersTAble extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(216, 216, 250));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,30 +86,32 @@ public class UsersTAble extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(25, 25, 25))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
+
+        jScrollPane3.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
         );
 
         pack();
@@ -128,7 +131,7 @@ public class UsersTAble extends javax.swing.JFrame {
             DefaultTableModel dtm = (DefaultTableModel) table.getModel();
             selectedRow = table.getSelectedRow();
             String i = dtm.getValueAt(selectedRow, 0).toString();
-//            System.out.println("ID is " + i);
+            //            System.out.println("ID is " + i);
 
             EmployeeClass data = new EmployeeClass();
             data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
@@ -147,7 +150,7 @@ public class UsersTAble extends javax.swing.JFrame {
             String sql = "SELECT * FROM users WHERE ID=? ";
             PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
             ps.setInt(1, data.getId());
-//            ps.setInt(2, 1);
+            //            ps.setInt(2, 1);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -155,7 +158,7 @@ public class UsersTAble extends javax.swing.JFrame {
                 data.setAddress(rs.getString("Address"));
                 data.setPassword(rs.getString("password"));
                 data.setContactNumber(rs.getString("contactNumber"));
-//                data.setAdharNumber(rs.getString("adharNumber"));
+                //                data.setAdharNumber(rs.getString("adharNumber"));
 
             }
             AddEmployee employee = new AddEmployee( adminData,data ,false);
@@ -205,6 +208,7 @@ public class UsersTAble extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
@@ -216,7 +220,7 @@ public class UsersTAble extends javax.swing.JFrame {
             
             String[] headerName = {"ID", "Name", "emailId", "Role", "Joining Date"};
             DefaultTableModel model = new DefaultTableModel(null, headerName);
-            table.setModel(model);
+          table.setModel(model);
             while (resultSet.next()) {
                 EmployeeClass data = new EmployeeClass();
                 data.setId(resultSet.getInt("ID"));

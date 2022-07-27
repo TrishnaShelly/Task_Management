@@ -6,6 +6,7 @@ package com.mycompany.task_management;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,6 +19,10 @@ public class Splash extends javax.swing.JFrame {
      */
     public Splash() {
         initComponents();
+//                setIconImage(new ImageIcon(getClass().getResource("C:\\Users\\login\\OneDrive\\Documents\\GitHub\\"
+//                + "Task_Management\\src\\main\\java\\com\\mycompany\\task_management\\"
+//                + "icons\\tasks.png")).getImage());
+
     }
 
     /**

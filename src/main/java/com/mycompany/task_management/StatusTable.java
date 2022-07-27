@@ -53,6 +53,7 @@ public class StatusTable extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -106,7 +107,7 @@ public class StatusTable extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 328, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(15, 15, 15))
         );
@@ -125,25 +126,31 @@ public class StatusTable extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        jScrollPane3.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
         );
 
         pack();
@@ -156,55 +163,6 @@ public class StatusTable extends javax.swing.JFrame {
         this.dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        try {
-            // TODO add your handling code here:
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-            selectedRow = table.getSelectedRow();
-            String i = dtm.getValueAt(selectedRow, 0).toString();
-//            System.out.println("ID is " + i);
-//            System.out.println("desti inside  mouse employeetable" + desti);
-//
-            TaskClass data = new TaskClass();
-            data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
-            data.setTitle(dtm.getValueAt(selectedRow, 1).toString());
-            data.setDescription(dtm.getValueAt(selectedRow, 2).toString());
-            if(!"Pending".equals(dtm.getValueAt(selectedRow, 3).toString()))data.setStatus(1);
-//            data.setStatus();
-//            
-else {
-                data.setStatus(0);
-            }
-
-            String sql = "SELECT * FROM tasks WHERE ID=?";
-            PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
-            ps.setInt(1, data.getId());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                data.setEmployeeId(rs.getInt("employeeID"));
-                data.setManagerId(rs.getInt("managerID"));
-                data.setStratDate(rs.getString("startdate"));
-                data.setDueDate(rs.getString("dueDate"));
-
-            }
-            if(data.getStatus()== 1){
-             
-                        JOptionPane.showMessageDialog(this,"This task is completed you can,t change its status ");
-                        
-            }
-
-            else{ changeStatus employee = new changeStatus(data,managerData);
-            employee.setVisible(true);
-            this.dispose();}
-
-        } catch (SQLException ex) {
-            Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
  switch (managerData.getRole()) {
@@ -225,6 +183,54 @@ else {
             }
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+            selectedRow = table.getSelectedRow();
+            String i = dtm.getValueAt(selectedRow, 0).toString();
+            //            System.out.println("ID is " + i);
+            //            System.out.println("desti inside  mouse employeetable" + desti);
+            //
+            TaskClass data = new TaskClass();
+            data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
+            data.setTitle(dtm.getValueAt(selectedRow, 1).toString());
+            data.setDescription(dtm.getValueAt(selectedRow, 2).toString());
+            if(!"Pending".equals(dtm.getValueAt(selectedRow, 3).toString()))data.setStatus(1);
+            //            data.setStatus();
+            //
+            else {
+                data.setStatus(0);
+            }
+
+            String sql = "SELECT * FROM tasks WHERE ID=?";
+            PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
+            ps.setInt(1, data.getId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                data.setEmployeeId(rs.getInt("employeeID"));
+                data.setManagerId(rs.getInt("managerID"));
+                data.setStratDate(rs.getString("startdate"));
+                data.setDueDate(rs.getString("dueDate"));
+
+            }
+            if(data.getStatus()== 1){
+
+                JOptionPane.showMessageDialog(this,"This task is completed you can,t change its status ");
+
+            }
+
+            else{ changeStatus employee = new changeStatus(data,managerData);
+                employee.setVisible(true);
+                this.dispose();}
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -267,6 +273,7 @@ else {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
