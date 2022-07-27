@@ -241,6 +241,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="contactNumber">
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contactNumberActionPerformed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="contactNumberKeyTyped"/>
               </Events>
             </Component>

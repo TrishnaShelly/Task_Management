@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author login
  */
 public class TaskTable extends javax.swing.JFrame {
-
+TaskClass data;
     EmployeeClass ManagerData;
     int role, selectedRow;
     ConnectionClass connectionClass = ConnectionClass.getInstance();
@@ -100,6 +100,11 @@ public class TaskTable extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -177,6 +182,60 @@ public class TaskTable extends javax.swing.JFrame {
         status.setVisible(true);
         this.dispose(); // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+         try {
+//"ID", "Title", "Description", "Start Date", "Due Date","Status"
+            // TODO add your handling code here:
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+            selectedRow = table.getSelectedRow();
+            String i = dtm.getValueAt(selectedRow, 0).toString();
+            //            System.out.println("ID is " + i);
+
+            data = new TaskClass();
+            data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
+            data.setTitle(dtm.getValueAt(selectedRow, 1).toString());
+            data.setDescription(dtm.getValueAt(selectedRow, 2).toString());
+//            String role = dtm.getValueAt(selectedRow, 3).toString();
+//            if (role.equals("Admin")) {
+//                data.setRole(1);
+//            } else if (role.equals("Manager")) {
+//                data.setRole(2);
+//            } else if (role.equals("Employee")) {
+//                data.setRole(3);
+//            }
+            data.setStratDate(dtm.getValueAt(selectedRow, 3).toString());
+            data.setDueDate(dtm.getValueAt(selectedRow, 4).toString());
+            if(!"Pending".equals(dtm.getValueAt(selectedRow, 3).toString()))data.setStatus(1);
+            //            data.setStatus();
+            //
+            else {
+                data.setStatus(0);
+            }
+
+            String sql = "SELECT * FROM tasks WHERE ID=? ";
+            PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
+            ps.setInt(1, data.getId());
+            //            ps.setInt(2, 1);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                data.setEmployeeId(rs.getInt("employeeID"));
+                data.setManagerId(rs.getInt("managerId"));
+//                data.setPassword(rs.getString("password"));
+//                data.setContactNumber(rs.getString("contactNumber"));
+                //                data.setAdharNumber(rs.getString("adharNumber"));
+
+            }
+            AssignTask employee = new AssignTask( data , ManagerData );
+            employee.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersTAble.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableMouseClicked
 
     /**
      * @param args the command line arguments

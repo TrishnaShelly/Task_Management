@@ -353,9 +353,10 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_piceMouseClicked
 
     private void pictMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictMouseClicked
-        AssignTask assign = new AssignTask(1, admindata);
-        assign.setVisible(true);
-        this.dispose();
+        TaskTable task = new TaskTable(1, admindata);
+
+            task.setVisible(true);
+            this.dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_pictMouseClicked

@@ -93,6 +93,11 @@ public class EmployeeTable extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -156,6 +161,45 @@ public class EmployeeTable extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+            selectedRow = table.getSelectedRow();
+            String i = dtm.getValueAt(selectedRow, 0).toString();
+            //            System.out.println("ID is " + i);
+
+            EmployeeClass data = new EmployeeClass();
+            data.setId(Integer.parseInt(dtm.getValueAt(selectedRow, 0).toString()));
+            data.setName(dtm.getValueAt(selectedRow, 1).toString());
+            data.setEmail(dtm.getValueAt(selectedRow, 2).toString());
+            data.setAge(Integer.parseInt(dtm.getValueAt(selectedRow, 3).toString()));
+            data.setJoiningDate(dtm.getValueAt(selectedRow, 4).toString());
+
+            String sql = "SELECT * FROM users WHERE ID=? ";
+            PreparedStatement ps = connectionClass.connection.prepareStatement(sql);
+            ps.setInt(1, data.getId());
+            //            ps.setInt(2, 1);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                data.setRole(rs.getInt("role"));
+                data.setAddress(rs.getString("Address"));
+                data.setPassword(rs.getString("password"));
+                data.setContactNumber(rs.getString("contactNumber"));
+                //                data.setAdharNumber(rs.getString("adharNumber"));
+
+            }
+            AddEmployee employee = new AddEmployee(managerData, data, true);
+            employee.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersTAble.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableMouseClicked
 
     /**
      * @param args the command line arguments

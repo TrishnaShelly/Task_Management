@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class AssignTask extends javax.swing.JFrame {
 
-    boolean isUpdate = false,status=false;
+    boolean isUpdate = false, status = false;
     String simpleDate;
     int role;
     EmployeeClass ManagerData;
@@ -29,7 +29,8 @@ public class AssignTask extends javax.swing.JFrame {
     String name;
     int des;
     int id;
-    Date d2= new Date();
+    Date d2 = new Date();
+
     /**
      * Creates new form AssignTask
      */
@@ -39,13 +40,12 @@ public class AssignTask extends javax.swing.JFrame {
         SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MMM/yyyy");
         simpleDate = frrmatter.format(d);
         dueDate.setDateFormatString("dd/MMM/yyyy");
-        
-        
+
     }
 
     public AssignTask(int role, EmployeeClass ManagerData) {
         initComponents();
-       dueDate.setMinSelectableDate(d2);
+        dueDate.setMinSelectableDate(d2);
         Date d = new Date();
         SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MMM/yyyy");
         simpleDate = frrmatter.format(d);
@@ -99,13 +99,14 @@ public class AssignTask extends javax.swing.JFrame {
 //          check=true;
             view.setVisible(false);
             btn.setVisible(false);
-            if(taskdata.getStatus()==0){
-            heading.setText("View Task (  Not Done )");}
-            else{
-                            heading.setText("View Task ( Done )");}
-
-            }
-         else {
+//            System.out.println(taskdata.getStatus());
+//            if (taskdata.getStatus() == 0) {
+//                heading.setText("View Task (  Not Done )");
+//            } else {
+//                heading.setText("View Task ( Done )");
+//            }
+            heading.setText("View Task ");
+        } else {
             view.setText("Delete task ");
             btn.setText("Update Task");
             heading.setText("Update Task");
@@ -121,7 +122,7 @@ public class AssignTask extends javax.swing.JFrame {
                         id = rs.getInt("ID");
                         name = rs.getString("name");
                         des = rs.getInt("role");
-                         if (des == 3) {
+                        if (des == 3) {
                             employeeID.addItem(name + "(Employee)id: " + id);
                         }
 
@@ -179,9 +180,9 @@ public class AssignTask extends javax.swing.JFrame {
             while (rs.next()) {
                 name = rs.getString("name");
 //                role = rs.getInt("role");
-               
+
 //                if (taskdata.getEmployeeId() == 3) {
-                    employeeID.setSelectedItem(name + "(Employee)id: " + taskdata.getEmployeeId());
+                employeeID.setSelectedItem(name + "(Employee)id: " + taskdata.getEmployeeId());
 
 //                }
             }
@@ -368,88 +369,87 @@ public class AssignTask extends javax.swing.JFrame {
     }//GEN-LAST:event_titleActionPerformed
 
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
-        SimpleDateFormat Date_Format = new SimpleDateFormat("dd/MMM/yyyy");
-        String date = Date_Format.format(dueDate.getDate());
-        String employee = (String) employeeID.getSelectedItem();
-
         if (title.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter name of task  ");
         } else if (description.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter descrption ");
-        } else if (date.equals("")) {
+        } else if (dueDate.getDate().equals("")) {
             JOptionPane.showMessageDialog(this, "Please choose a due Date  ");
-        } else if (employee.equals("")) {
-            JOptionPane.showMessageDialog(this, "Please choose a employee to assign task  ");
-        }
-        if (isUpdate) {
+
+        } else {
+            if (isUpdate) {
+                SimpleDateFormat Date_Format = new SimpleDateFormat("dd/MMM/yyyy");
+                String date = Date_Format.format(dueDate.getDate());
+                String employee = (String) employeeID.getSelectedItem();
 //                String sql = "INSERT INTO tasks (title,description,startDate,dueDate, employeeID ,"
 //                    + "managerID) VALUES(?,?,?,?,?,?)";
                 String sql = "UPDATE tasks SET title=?,description=?,dueDate=?, employeeID=?, managerID=?, status=?"
                         + "  WHERE ID=?";
-            try {
-                PreparedStatement ps2 = connectionClass.connection.prepareStatement(sql);
-                ps2.setString(1, title.getText());
-                ps2.setString(2, description.getText());
+                try {
+                    PreparedStatement ps2 = connectionClass.connection.prepareStatement(sql);
+                    ps2.setString(1, title.getText());
+                    ps2.setString(2, description.getText());
 //                ps2.setString(3, simpleDate);
-                ps2.setString(3, date);
-                String emp[] = employee.split(" ");
-                int lenght = emp.length;
-                int a = Integer.parseInt(emp[lenght - 1]);
-                ps2.setInt(4, a);
-                ps2.setInt(5, ManagerData.getId());
-                ps2.setInt(6,0);
-                ps2.setInt(7,taskdata.getId());
-                
-                ps2.execute();
-                JOptionPane.showMessageDialog(this, "updated Task ");
+                    ps2.setString(3, date);
+                    String emp[] = employee.split(" ");
+                    int lenght = emp.length;
+                    int a = Integer.parseInt(emp[lenght - 1]);
+                    ps2.setInt(4, a);
+                    ps2.setInt(5, ManagerData.getId());
+                    ps2.setInt(6, 0);
+                    ps2.setInt(7, taskdata.getId());
 
-                if (ManagerData.getRole() == 1) {
-                    AdminPanel admin = new AdminPanel(ManagerData);
-                    admin.setVisible(true);
-                    this.dispose();
-                } else if (ManagerData.getRole()  == 2) {
-                    ManagerPanel manager = new ManagerPanel(ManagerData);
-                    manager.setVisible(true);
-                    this.dispose();
+                    ps2.execute();
+                    JOptionPane.showMessageDialog(this, "updated Task ");
+
+                    if (ManagerData.getRole() == 1) {
+                        AdminPanel admin = new AdminPanel(ManagerData);
+                        admin.setVisible(true);
+                        this.dispose();
+                    } else if (ManagerData.getRole() == 2) {
+                        ManagerPanel manager = new ManagerPanel(ManagerData);
+                        manager.setVisible(true);
+                        this.dispose();
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
-            
-            
-        } else {
-            String sql = "INSERT INTO tasks (title,description,startDate,dueDate, employeeID ,status ,"
-                    + "managerID) VALUES(?,?,?,?,?,?,?)";
-            try {
-                PreparedStatement ps2 = connectionClass.connection.prepareStatement(sql);
-                ps2.setString(1, title.getText());
-                ps2.setString(2, description.getText());
-                ps2.setString(3, simpleDate);
-                ps2.setString(4, date);
-                String emp[] = employee.split(" ");
-                int lenght = emp.length;
-                int a = Integer.parseInt(emp[lenght - 1]);
-                ps2.setInt(5, a);
-                ps2.setInt(6,0);
-                ps2.setInt(7, ManagerData.getId());
-                ps2.execute();
-                JOptionPane.showMessageDialog(this, "Assigned Task ");
+            } else {
+                SimpleDateFormat Date_Format = new SimpleDateFormat("dd/MMM/yyyy");
+                String date = Date_Format.format(dueDate.getDate());
+                String employee = (String) employeeID.getSelectedItem();
+                String sql = "INSERT INTO tasks (title,description,startDate,dueDate, employeeID ,status ,"
+                        + "managerID) VALUES(?,?,?,?,?,?,?)";
+                try {
+                    PreparedStatement ps2 = connectionClass.connection.prepareStatement(sql);
+                    ps2.setString(1, title.getText());
+                    ps2.setString(2, description.getText());
+                    ps2.setString(3, simpleDate);
+                    ps2.setString(4, date);
+                    String emp[] = employee.split(" ");
+                    int lenght = emp.length;
+                    int a = Integer.parseInt(emp[lenght - 1]);
+                    ps2.setInt(5, a);
+                    ps2.setInt(6, 0);
+                    ps2.setInt(7, ManagerData.getId());
+                    ps2.execute();
+                    JOptionPane.showMessageDialog(this, "Assigned Task ");
 
-                if (role == 1) {
-                    AdminPanel admin = new AdminPanel(ManagerData);
-                    admin.setVisible(true);
-                    this.dispose();
-                } else if (role == 2) {
-                    ManagerPanel manager = new ManagerPanel(ManagerData);
-                    manager.setVisible(true);
-                    this.dispose();
+                    if (role == 1) {
+                        AdminPanel admin = new AdminPanel(ManagerData);
+                        admin.setVisible(true);
+                        this.dispose();
+                    } else if (role == 2) {
+                        ManagerPanel manager = new ManagerPanel(ManagerData);
+                        manager.setVisible(true);
+                        this.dispose();
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnActionPerformed

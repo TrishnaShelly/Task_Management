@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  * @author login
  */
 public class AddEmployee extends javax.swing.JFrame {
-
+     int lenght=0;
     String ch = new String();
     boolean table = true;
     boolean isUpdate = false;
@@ -130,24 +130,24 @@ public class AddEmployee extends javax.swing.JFrame {
         btnDelete.setVisible(false);
         this.role = role;
         switch (role) {
-            case 2:
+            case 2 -> {
                 btnAdd.setText("Add Manager ");
                 heading.setText("Add Manager");
 //                btnDelete.setText("Delete Manager");
-                break;
-            case 3:
+            }
+            case 3 -> {
                 btnAdd.setText("ADD Employee ");
                 heading.setText("Add Employee");
 //                btnDelete.setText("Delete Employee");
-                break;
+            }
+            default -> {
+            }
+        }
 //            case 1:
 //                btnAdd.setText("Add Admin ");
 //                heading.setText("Update Admin");
 //                btnDelete.setVisible(false);
 //                break;
-            default:
-                break;
-        }
         this.managerData = managerData;
         name1.setVisible(false);
         email1.setVisible(false);
@@ -236,6 +236,11 @@ public class AddEmployee extends javax.swing.JFrame {
             }
         });
 
+        contactNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactNumberActionPerformed(evt);
+            }
+        });
         contactNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 contactNumberKeyTyped(evt);
@@ -462,6 +467,7 @@ public class AddEmployee extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        int num =contactNumber.getText().length();
         if (name.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter name ");
         } else if (address.getText().equals("")) {
@@ -470,9 +476,11 @@ public class AddEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter email ");
         } else if (password.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter password ");
-        } else if (contactNumber.getText().equals("")) {
+        } else if (contactNumber.getText().equals("") && num !=10) {
             JOptionPane.showMessageDialog(this, "Please enter contact number ");
-        } else if (!isValidEmailID(ch) && !isUpdate) {
+        } else if (age.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Please enter age  ");
+        }else if (!isValidEmailID(ch) && !isUpdate) {
             JOptionPane.showMessageDialog(this, "Please enter valid email");
 
             email1.setVisible(true);
@@ -601,11 +609,16 @@ public class AddEmployee extends javax.swing.JFrame {
         contact1.setVisible(false);
         char ch = evt.getKeyChar();
         if (Character.isDigit(ch) || ch == KeyEvent.VK_BACK_SPACE) {
+            lenght++;
         } else {
             contact1.setVisible(true);
             contact1.setText("Invalid Character " + ch);
             evt.consume();
-        }        // TODO add your handling code here:
+        } if(lenght==10){
+             contact1.setVisible(true);
+            contact1.setText("Valid Number ");
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_contactNumberKeyTyped
 
     private void passwordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyTyped
@@ -640,6 +653,10 @@ public class AddEmployee extends javax.swing.JFrame {
             this.dispose();
         } // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void contactNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactNumberActionPerformed
 
     /**
      * @param args the command line arguments
