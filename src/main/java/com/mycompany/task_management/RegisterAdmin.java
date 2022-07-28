@@ -121,11 +121,11 @@ ConnectionClass con = ConnectionClass.getInstance();
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         pack();
@@ -142,13 +142,13 @@ ConnectionClass con = ConnectionClass.getInstance();
             JOptionPane.showMessageDialog(this, "Please enter passwords ");
         } else {
             
-                String sql = "INSERT INTO users (name, role,  email, password) VALUES(?,?,?,?)";
+                String sql = "INSERT INTO users (name, role,  email, password,age,address,contactNumber) VALUES(?,?,?,?,?,?,?)";
                 try {
                     PreparedStatement ps = con.connection.prepareStatement(sql);
                     ps.setString(1, name.getText().trim());
 //                    ps.setString(2, simpleDate);
                     ps.setInt(2, 1);
-//                    ps.setString(4, address.getText().trim());
+//                    
                     ps.setString(3, email.getText().trim());
                     ps.setString(4, password.getText().trim());
 //                    ps.setString(7, contactNumber.getText().trim());

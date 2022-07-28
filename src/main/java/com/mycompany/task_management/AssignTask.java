@@ -36,6 +36,8 @@ public class AssignTask extends javax.swing.JFrame {
      */
     public AssignTask() {
         initComponents();
+        assign1.setVisible(false);
+        assign2.setVisible(false);
         Date d = new Date();
         SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MMM/yyyy");
         simpleDate = frrmatter.format(d);
@@ -45,6 +47,8 @@ public class AssignTask extends javax.swing.JFrame {
 
     public AssignTask(int role, EmployeeClass ManagerData) {
         initComponents();
+        assign1.setVisible(false);
+        assign2.setVisible(false);
         dueDate.setMinSelectableDate(d2);
         Date d = new Date();
         SimpleDateFormat frrmatter = new SimpleDateFormat("dd/MMM/yyyy");
@@ -94,17 +98,15 @@ public class AssignTask extends javax.swing.JFrame {
 
     public AssignTask(TaskClass taskdata, EmployeeClass ManagerData) {
         initComponents();
+        assign1.setVisible(false);
+        assign2.setVisible(false);
 //          boolean check =false;
         if (taskdata.getEmployeeId() == ManagerData.getId()) {
 //          check=true;
             view.setVisible(false);
             btn.setVisible(false);
-//            System.out.println(taskdata.getStatus());
-//            if (taskdata.getStatus() == 0) {
-//                heading.setText("View Task (  Not Done )");
-//            } else {
-//                heading.setText("View Task ( Done )");
-//            }
+            assign1.setVisible(true);
+        assign2.setVisible(true);
             heading.setText("View Task ");
         } else {
             view.setText("Delete task ");
@@ -159,6 +161,23 @@ public class AssignTask extends javax.swing.JFrame {
         isUpdate = true;
         title.setText(taskdata.getTitle());
         description.setText(taskdata.getDescription());
+        try {
+            String sql2 = "SELECT name FROM users WHERE ID =?";
+            PreparedStatement ps2;
+            ps2 = connectionClass.connection.prepareStatement(sql2);
+            ps2.setInt(1, taskdata.getManagerId());
+            ResultSet rs = ps2.executeQuery();
+            while (rs.next()) {
+                name = rs.getString("name");
+                assign2.setText(name);
+
+//                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+      
         String date = (taskdata.getDueDate());
         try {
             Date dateFinal = new SimpleDateFormat("dd/MMM/yyyy").parse(date);
@@ -217,6 +236,8 @@ public class AssignTask extends javax.swing.JFrame {
         btn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         view = new javax.swing.JButton();
+        assign1 = new javax.swing.JLabel();
+        assign2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -286,36 +307,41 @@ public class AssignTask extends javax.swing.JFrame {
             }
         });
 
+        assign1.setText("Assigned By:");
+
+        assign2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assign2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(assign1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(title)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(dueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(8, 8, 8))
-                            .addComponent(employeeID, 0, 340, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(view)
-                        .addGap(0, 0, 0)))
+                        .addComponent(view))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(title)
+                            .addComponent(jScrollPane1)
+                            .addComponent(dueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(8, 8, 8))
+                    .addComponent(employeeID, 0, 340, Short.MAX_VALUE)
+                    .addComponent(assign2))
                 .addGap(100, 100, 100))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -339,12 +365,16 @@ public class AssignTask extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(employeeID, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(assign1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(assign2, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88))
+                .addGap(47, 47, 47))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -516,6 +546,10 @@ public class AssignTask extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_viewActionPerformed
 
+    private void assign2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assign2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assign2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -552,6 +586,8 @@ public class AssignTask extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel assign1;
+    private javax.swing.JTextField assign2;
     private javax.swing.JButton btn;
     private javax.swing.JTextArea description;
     private com.toedter.calendar.JDateChooser dueDate;
