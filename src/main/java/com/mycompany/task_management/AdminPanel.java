@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -402,10 +403,22 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_addEmployeeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        LoginBefore login = new LoginBefore();
-        login.setVisible(true);
-        this.dispose();
+       int result = JOptionPane.showConfirmDialog(null,"Are You sure you want to SIGN OUT ?");
+          switch(result){
+              case JOptionPane.YES_OPTION -> {
+                  LoginBefore login = new LoginBefore();
+                  login.setVisible(true);
+                  
+                  this.dispose();
+                  break;
+            }
+              case JOptionPane.NO_OPTION -> {break;
+            }
+              case  JOptionPane.CANCEL_OPTION -> {break;
+            }
+              case JOptionPane.CLOSED_OPTION -> {break;
+            }
+          }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
