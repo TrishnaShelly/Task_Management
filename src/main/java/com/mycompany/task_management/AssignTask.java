@@ -233,19 +233,21 @@ public class AssignTask extends javax.swing.JFrame {
         dueDate = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         employeeID = new javax.swing.JComboBox<>();
-        btn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        view = new javax.swing.JButton();
         assign1 = new javax.swing.JLabel();
         assign2 = new javax.swing.JTextField();
+        button1 = new com.mycompany.task_management.Button();
+        btn = new com.mycompany.task_management.Button();
+        view = new com.mycompany.task_management.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
 
-        heading.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        heading.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        heading.setForeground(new java.awt.Color(255, 255, 255));
         heading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         heading.setText("Assign task ");
 
@@ -286,32 +288,44 @@ public class AssignTask extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Assign Task to :");
 
-        btn.setText("Assign Task ");
+        assign1.setText("Assigned By:");
+
+        assign2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assign2ActionPerformed(evt);
+            }
+        });
+
+        button1.setBackground(new java.awt.Color(0, 153, 0));
+        button1.setForeground(new java.awt.Color(255, 255, 255));
+        button1.setText("Go To Home");
+        button1.setEffectColor(new java.awt.Color(204, 255, 204));
+        button1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+
+        btn.setBackground(new java.awt.Color(0, 153, 0));
+        btn.setForeground(new java.awt.Color(255, 255, 255));
+        btn.setText("Assign Task");
+        btn.setEffectColor(new java.awt.Color(204, 255, 204));
+        btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Go to Home ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
+        view.setBackground(new java.awt.Color(0, 153, 0));
+        view.setForeground(new java.awt.Color(255, 255, 255));
         view.setText("View Assigned Tasks ");
+        view.setEffectColor(new java.awt.Color(204, 255, 204));
+        view.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewActionPerformed(evt);
-            }
-        });
-
-        assign1.setText("Assigned By:");
-
-        assign2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assign2ActionPerformed(evt);
             }
         });
 
@@ -321,27 +335,28 @@ public class AssignTask extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(assign1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(assign1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(view))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(title)
                             .addComponent(jScrollPane1)
                             .addComponent(dueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(8, 8, 8))
-                    .addComponent(employeeID, 0, 340, Short.MAX_VALUE)
-                    .addComponent(assign2))
+                    .addComponent(employeeID, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(assign2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(100, 100, 100))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -369,12 +384,12 @@ public class AssignTask extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(assign1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(assign2, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -398,8 +413,33 @@ public class AssignTask extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_titleActionPerformed
 
+    private void assign2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assign2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_assign2ActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+
+        switch (ManagerData.getRole()) {
+            case 1 -> {
+                AdminPanel admin = new AdminPanel(ManagerData);
+                admin.setVisible(true);
+                this.dispose();
+            }
+            case 2 -> {
+                ManagerPanel manager = new ManagerPanel(ManagerData);
+                manager.setVisible(true);
+                this.dispose();
+            }
+            default -> {
+                EmployeePanel emp = new EmployeePanel(ManagerData);
+                emp.setVisible(true);
+                this.dispose();
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_button1ActionPerformed
+
     private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
-        if (title.getText().equals("")) {
+ if (title.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter name of task  ");
         } else if (description.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter descrption ");
@@ -481,33 +521,11 @@ public class AssignTask extends javax.swing.JFrame {
                     Logger.getLogger(AssignTask.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        switch (ManagerData.getRole()) {
-            case 1 -> {
-                AdminPanel admin = new AdminPanel(ManagerData);
-                admin.setVisible(true);
-                this.dispose();
-            }
-            case 2 -> {
-                ManagerPanel manager = new ManagerPanel(ManagerData);
-                manager.setVisible(true);
-                this.dispose();
-            }
-            default -> {
-                EmployeePanel emp = new EmployeePanel(ManagerData);
-                emp.setVisible(true);
-                this.dispose();
-            }
-        }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
-        if (isUpdate) {
+ if (isUpdate) {
             try {
                 String sql = "DELETE FROM tasks WHERE id=?";
                 PreparedStatement preparedStatement2 = connectionClass.connection.prepareStatement(sql);
@@ -543,12 +561,8 @@ public class AssignTask extends javax.swing.JFrame {
 
             task.setVisible(true);
             this.dispose();
-        }
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_viewActionPerformed
-
-    private void assign2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assign2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assign2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -588,12 +602,12 @@ public class AssignTask extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel assign1;
     private javax.swing.JTextField assign2;
-    private javax.swing.JButton btn;
+    private com.mycompany.task_management.Button btn;
+    private com.mycompany.task_management.Button button1;
     private javax.swing.JTextArea description;
     private com.toedter.calendar.JDateChooser dueDate;
     private javax.swing.JComboBox<String> employeeID;
     private javax.swing.JLabel heading;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -603,6 +617,6 @@ public class AssignTask extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField title;
-    private javax.swing.JButton view;
+    private com.mycompany.task_management.Button view;
     // End of variables declaration//GEN-END:variables
 }

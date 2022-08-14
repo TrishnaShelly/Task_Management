@@ -114,12 +114,12 @@ public class ManagerPanel extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        button1 = new com.mycompany.task_management.Button();
+        button2 = new com.mycompany.task_management.Button();
+        button3 = new com.mycompany.task_management.Button();
+        button4 = new com.mycompany.task_management.Button();
+        button5 = new com.mycompany.task_management.Button();
+        button6 = new com.mycompany.task_management.Button();
         completed = new javax.swing.JLabel();
         pending = new javax.swing.JLabel();
         employee = new javax.swing.JLabel();
@@ -131,12 +131,14 @@ public class ManagerPanel extends javax.swing.JFrame {
         numc = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 51));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("WELCOME MANAGER ");
 
@@ -152,57 +154,69 @@ public class ManagerPanel extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(0, 153, 51));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Employee");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        button1.setForeground(new java.awt.Color(0, 153, 0));
+        button1.setText("Employee");
+        button1.setEffectColor(new java.awt.Color(51, 255, 204));
+        button1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                button1ActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Log Out ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        button2.setForeground(new java.awt.Color(0, 153, 0));
+        button2.setText("Assign Task");
+        button2.setEffectColor(new java.awt.Color(51, 255, 204));
+        button2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                button2ActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Profile");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        button3.setForeground(new java.awt.Color(0, 153, 0));
+        button3.setText("View Task");
+        button3.setEffectColor(new java.awt.Color(51, 255, 204));
+        button3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                button3ActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setText("Assign task");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        button4.setForeground(new java.awt.Color(0, 153, 0));
+        button4.setText("Profile");
+        button4.setEffectColor(new java.awt.Color(51, 255, 204));
+        button4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                button4ActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton5.setText("Exit");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        button5.setForeground(new java.awt.Color(0, 153, 0));
+        button5.setText("Log Out ");
+        button5.setEffectColor(new java.awt.Color(51, 255, 204));
+        button5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                button5ActionPerformed(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setText("View Task ");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        button6.setForeground(new java.awt.Color(0, 153, 0));
+        button6.setText("Exit");
+        button6.setEffectColor(new java.awt.Color(51, 255, 204));
+        button6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                button6ActionPerformed(evt);
             }
         });
 
@@ -210,29 +224,33 @@ public class ManagerPanel extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button2, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(button3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         completed.setBackground(new java.awt.Color(153, 153, 153));
@@ -306,14 +324,11 @@ public class ManagerPanel extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(pending, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(completed, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,7 +347,10 @@ public class ManagerPanel extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(nump, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(numc, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 142, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -355,53 +373,6 @@ public class ManagerPanel extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EmployeeTable addEmployee = new EmployeeTable(role, managerData);
-        addEmployee.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        View manager = new View(managerData);
-        manager.setVisible(true);
-        this.dispose();
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Are You sure you want to SIGN OUT ?");
-        switch (result) {
-            case JOptionPane.YES_OPTION -> {
-                LoginBefore login = new LoginBefore();
-                login.setVisible(true);
-
-                this.dispose();
-                break;
-            }
-            case JOptionPane.NO_OPTION -> {
-                break;
-            }
-            case JOptionPane.CANCEL_OPTION -> {
-                break;
-            }
-            case JOptionPane.CLOSED_OPTION -> {
-                break;
-            }
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        AssignTask assign = new AssignTask(2, managerData);
-        assign.setVisible(true);
-        this.dispose();
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void completedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_completedMouseClicked
         StatusTable status = new StatusTable(managerData, 1);
@@ -427,14 +398,70 @@ public class ManagerPanel extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_employeeMouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        TaskTable task = new TaskTable(2, managerData);
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+ EmployeeTable addEmployee = new EmployeeTable(role, managerData);
+        addEmployee.setVisible(true);
+        this.dispose();         // TODO add your handling code here:
+    }//GEN-LAST:event_button1ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+ AssignTask assign = new AssignTask(2, managerData);
+        assign.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_button2ActionPerformed
+
+    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+TaskTable task = new TaskTable(2, managerData);
 
         task.setVisible(true);
-        this.dispose();
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_button3ActionPerformed
 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
+   View manager = new View(managerData);
+        manager.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_button4ActionPerformed
+
+    private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
+   int result = JOptionPane.showConfirmDialog(null, "Are You sure you want to SIGN OUT ?");
+        switch (result) {
+            case JOptionPane.YES_OPTION -> {
+                LoginBefore login = new LoginBefore();
+                login.setVisible(true);
+
+                this.dispose();
+                break;
+            }
+            case JOptionPane.NO_OPTION -> {
+                break;
+            }
+            case JOptionPane.CANCEL_OPTION -> {
+                break;
+            }
+            case JOptionPane.CLOSED_OPTION -> {
+                break;
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_button5ActionPerformed
+
+    private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
+   int result = JOptionPane.showConfirmDialog(null, "Are You sure you want to SIGN OUT ?");
+        switch (result) {
+            case JOptionPane.YES_OPTION -> {
+                System.exit(0);
+            }
+            case JOptionPane.NO_OPTION -> {
+                break;
+            }
+            case JOptionPane.CANCEL_OPTION -> {
+                break;
+            }
+            case JOptionPane.CLOSED_OPTION -> {
+                break;
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_button6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,14 +499,14 @@ public class ManagerPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.mycompany.task_management.Button button1;
+    private com.mycompany.task_management.Button button2;
+    private com.mycompany.task_management.Button button3;
+    private com.mycompany.task_management.Button button4;
+    private com.mycompany.task_management.Button button5;
+    private com.mycompany.task_management.Button button6;
     private javax.swing.JLabel completed;
     private javax.swing.JLabel employee;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

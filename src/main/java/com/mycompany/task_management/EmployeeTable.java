@@ -61,24 +61,35 @@ public class EmployeeTable extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        add = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        add = new com.mycompany.task_management.Button();
+        button1 = new com.mycompany.task_management.Button();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        table = new com.mycompany.task_management.TableDark();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        add.setBackground(new java.awt.Color(0, 153, 0));
+        add.setForeground(new java.awt.Color(255, 255, 255));
         add.setText("Add Employee");
+        add.setEffectColor(new java.awt.Color(204, 255, 204));
+        add.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Go to Home ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        button1.setBackground(new java.awt.Color(0, 153, 0));
+        button1.setForeground(new java.awt.Color(255, 255, 255));
+        button1.setText("Go To Home");
+        button1.setEffectColor(new java.awt.Color(204, 255, 204));
+        button1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                button1ActionPerformed(evt);
             }
         });
 
@@ -98,29 +109,29 @@ public class EmployeeTable extends javax.swing.JFrame {
                 tableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(table);
+        jScrollPane3.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(add)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(100, 100, 100))
+                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
-                .addGap(40, 40, 40)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(add))
-                .addGap(29, 29, 29))
+                    .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -141,17 +152,14 @@ public class EmployeeTable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        // TODO add your handling code here:
 
         AddEmployee add = new AddEmployee(role, managerData);
         add.setVisible(true);
-        this.dispose();
-
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_addActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        if (desti == 2) {
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+ if (desti == 2) {
             ManagerPanel manager = new ManagerPanel(managerData);
             manager.setVisible(true);
             this.dispose();
@@ -159,11 +167,11 @@ public class EmployeeTable extends javax.swing.JFrame {
             AdminPanel admin = new AdminPanel(managerData);
             admin.setVisible(true);
             this.dispose();
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_button1ActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-        try {
+ try {
             // TODO add your handling code here:
             DefaultTableModel dtm = (DefaultTableModel) table.getModel();
             selectedRow = table.getSelectedRow();
@@ -197,8 +205,7 @@ public class EmployeeTable extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(UsersTAble.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:
-
-        // TODO add your handling code here:
+         // TODO add your handling code here:
     }//GEN-LAST:event_tableMouseClicked
 
     /**
@@ -237,12 +244,12 @@ public class EmployeeTable extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add;
-    private javax.swing.JButton jButton2;
+    private com.mycompany.task_management.Button add;
+    private com.mycompany.task_management.Button button1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable table;
+    private javax.swing.JScrollPane jScrollPane3;
+    private com.mycompany.task_management.TableDark table;
     // End of variables declaration//GEN-END:variables
 public void createTable() {
         String statement = "SELECT * FROM users WHERE  role=?";

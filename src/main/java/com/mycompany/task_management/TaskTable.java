@@ -60,34 +60,15 @@ TaskClass data;
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        table = new com.mycompany.task_management.TableDark();
+        jPanel2 = new javax.swing.JPanel();
+        button1 = new com.mycompany.task_management.Button();
+        button2 = new com.mycompany.task_management.Button();
+        button3 = new com.mycompany.task_management.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Go to Home ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("View Completed Tasks ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("View pending tasks ");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        setUndecorated(true);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,32 +86,74 @@ TaskClass data;
                 tableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(table);
+        jScrollPane3.setViewportView(table);
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 0));
+
+        button1.setForeground(new java.awt.Color(0, 153, 0));
+        button1.setText("View Pending Tasks");
+        button1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+
+        button2.setForeground(new java.awt.Color(0, 153, 0));
+        button2.setText("View Completed Task ");
+        button2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
+
+        button3.setForeground(new java.awt.Color(0, 153, 0));
+        button3.setText("Go To Home ");
+        button3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        button3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(button2, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(button3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addGap(29, 29, 29))
+            .addComponent(jScrollPane3)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(22, 22, 22))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane3)
+                .addGap(33, 33, 33)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -139,52 +162,23 @@ TaskClass data;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2)
+                .addGap(0, 0, 0))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        switch (role) {
-            case 1 -> {
-                AdminPanel admin = new AdminPanel(ManagerData);
-                admin.setVisible(true);
-                this.dispose();
-            }
-            case 2 -> {
-                ManagerPanel manager = new ManagerPanel(ManagerData);
-                manager.setVisible(true);
-                this.dispose();
-            }
-            default -> {
-                EmployeePanel manager = new EmployeePanel(ManagerData);
-                manager.setVisible(true);
-                this.dispose();
-            }
-        }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        StatusTable status = new StatusTable(ManagerData, 1);
-        status.setVisible(true);
-        this.dispose();// TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        StatusTable status = new StatusTable(ManagerData, 0);
-        status.setVisible(true);
-        this.dispose(); // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-         try {
+ try {
 //"ID", "Title", "Description", "Start Date", "Due Date","Status"
             // TODO add your handling code here:
             DefaultTableModel dtm = (DefaultTableModel) table.getModel();
@@ -232,10 +226,40 @@ TaskClass data;
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(UsersTAble.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // TODO add your handling code here:
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_tableMouseClicked
+
+    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+  switch (role) {
+            case 1 -> {
+                AdminPanel admin = new AdminPanel(ManagerData);
+                admin.setVisible(true);
+                this.dispose();
+            }
+            case 2 -> {
+                ManagerPanel manager = new ManagerPanel(ManagerData);
+                manager.setVisible(true);
+                this.dispose();
+            }
+            default -> {
+                EmployeePanel manager = new EmployeePanel(ManagerData);
+                manager.setVisible(true);
+                this.dispose();
+            }
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_button3ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+ StatusTable status = new StatusTable(ManagerData, 1);
+        status.setVisible(true);
+        this.dispose();         // TODO add your handling code here:
+    }//GEN-LAST:event_button2ActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+ StatusTable status = new StatusTable(ManagerData, 0);
+        status.setVisible(true);
+        this.dispose();         // TODO add your handling code here:
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,13 +297,14 @@ TaskClass data;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private com.mycompany.task_management.Button button1;
+    private com.mycompany.task_management.Button button2;
+    private com.mycompany.task_management.Button button3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable table;
+    private javax.swing.JScrollPane jScrollPane3;
+    private com.mycompany.task_management.TableDark table;
     // End of variables declaration//GEN-END:variables
 
     public void createTable() {
