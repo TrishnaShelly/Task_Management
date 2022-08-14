@@ -68,7 +68,6 @@ TaskClass data;
         button3 = new com.mycompany.task_management.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

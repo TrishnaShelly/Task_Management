@@ -71,7 +71,6 @@ public class View extends javax.swing.JFrame {
         jLabel12.setText("Name;");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         passwordq.setBackground(new java.awt.Color(255, 255, 255));
 

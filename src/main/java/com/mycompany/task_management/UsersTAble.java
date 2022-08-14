@@ -55,7 +55,6 @@ public class UsersTAble extends javax.swing.JFrame {
         button1 = new com.mycompany.task_management.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

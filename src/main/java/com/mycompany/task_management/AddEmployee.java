@@ -191,7 +191,6 @@ public class AddEmployee extends javax.swing.JFrame {
         btnAdd = new com.mycompany.task_management.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -425,7 +424,7 @@ public class AddEmployee extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        setSize(new java.awt.Dimension(849, 573));
+        setSize(new java.awt.Dimension(865, 581));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
