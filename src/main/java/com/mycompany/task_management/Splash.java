@@ -19,9 +19,9 @@ public class Splash extends javax.swing.JFrame {
      */
     public Splash() {
         initComponents();
-//                setIconImage(new ImageIcon(getClass().getResource("C:\\Users\\login\\OneDrive\\Documents\\GitHub\\"
-//                + "Task_Management\\src\\main\\java\\com\\mycompany\\task_management\\"
-//                + "icons\\tasks.png")).getImage());
+//        String path = "C:\\Users\\login\\OneDrive\\Documents\\GitHub\\Task_Management\\src\\main\\java\\com\\mycompany\\task_management\\icons\\ss.png";
+//        ImageIcon icon = new ImageIcon(path);
+//        btn.setIcon(icon);
 
     }
 
@@ -36,9 +36,9 @@ public class Splash extends javax.swing.JFrame {
 
         gradientPanel1 = new com.mycompany.task_management.GradientPanel();
         jLabel1 = new javax.swing.JLabel();
-        bar = new javax.swing.JProgressBar();
         progress = new javax.swing.JLabel();
-        button1 = new com.mycompany.task_management.Button();
+        btn = new com.mycompany.task_management.ImageAvatar();
+        bar = new com.mycompany.task_management.ProgressBarCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -47,16 +47,14 @@ public class Splash extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("WELCOME To FlowQueue");
 
-        bar.setBackground(new java.awt.Color(0, 255, 255));
-        bar.setForeground(new java.awt.Color(0, 0, 0));
-
         progress.setBackground(new java.awt.Color(0, 0, 0));
         progress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         progress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         progress.setText("0 %");
 
-        button1.setBackground(new java.awt.Color(204, 255, 153));
-        button1.setIcon(new javax.swing.ImageIcon("C:\\Users\\login\\OneDrive\\Documents\\GitHub\\Task_Management\\src\\main\\java\\com\\mycompany\\task_management\\icons\\s3.jpg")); // NOI18N
+        btn.setIcon(new javax.swing.ImageIcon("C:\\Users\\login\\OneDrive\\Desktop\\ss.PNG")); // NOI18N
+
+        bar.setForeground(new java.awt.Color(204, 255, 204));
 
         javax.swing.GroupLayout gradientPanel1Layout = new javax.swing.GroupLayout(gradientPanel1);
         gradientPanel1.setLayout(gradientPanel1Layout);
@@ -64,25 +62,28 @@ public class Splash extends javax.swing.JFrame {
             gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gradientPanel1Layout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
-                .addGroup(gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                    .addComponent(progress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(bar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(progress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(gradientPanel1Layout.createSequentialGroup()
+                            .addGap(62, 62, 62)
+                            .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
         gradientPanel1Layout.setVerticalGroup(
             gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gradientPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(btn, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progress)
-                .addGap(44, 44, 44))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,8 +153,8 @@ public class Splash extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar bar;
-    private com.mycompany.task_management.Button button1;
+    private com.mycompany.task_management.ProgressBarCustom bar;
+    private com.mycompany.task_management.ImageAvatar btn;
     private com.mycompany.task_management.GradientPanel gradientPanel1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel progress;
